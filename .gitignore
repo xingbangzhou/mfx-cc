@@ -1,0 +1,4 @@
+shadow/
+bin/debug/
+bin/release/
+stable.h.cpp
