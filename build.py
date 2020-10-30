@@ -23,11 +23,12 @@ def copy_cef():
         os.makedirs(debug_path)
     if not os.path.isdir(release_path):
         os.makedirs(release_path)
-    
+    '''
     cef_debug_path = os.path.join('.', 'cef', 'bin', 'debug')
     cef_release_path = os.path.join('.', 'cef', 'bin', 'release')
     deepcopy(cef_debug_path, debug_path)
     deepcopy(cef_release_path, release_path)
+    '''
     
     resources_path = os.path.join('.', 'cef', 'resources')
     deepcopy(resources_path, debug_path)
