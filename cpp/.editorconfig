@@ -1,0 +1,25 @@
+root = true
+
+[*.{c,cpp,cxx,cc,tli,tlh,h,hh,hpp,hxx,hh,inl,asm,inc}]
+charset = utf-8-bom
+end_of_line = crlf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+[*.{vcxproj,props}]
+charset = utf-8-bom
+end_of_line = crlf
+insert_final_newline = false
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+[*.{pro,pri,prf}]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+tab_width = 4

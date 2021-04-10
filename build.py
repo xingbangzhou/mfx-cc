@@ -3,7 +3,7 @@ import sys
 import subprocess
 import shutil
 
-def deepcopy(path, out):
+def deepCopy(path, out):
     for files in os.listdir(path):
         name = os.path.join(path, files)
         back_name = os.path.join(out, files)
@@ -13,45 +13,34 @@ def deepcopy(path, out):
         else:
             if not os.path.isdir(back_name):
                 os.makedirs(back_name)
-            deepcopy(name, back_name)
+            deepCopy(name, back_name)
 
-def copy_cef():
-    debug_path = os.path.join('.', 'bin', 'debug')
-    release_path = os.path.join('.', 'bin', 'release')
+def copyDepends():
+    shadowBin = os.path.join('.', 'shadow', 'bin')
+    if not os.path.isdir(shadowBin):
+        os.makedirs(shadowBin)
     
-    if not os.path.isdir(debug_path):
-        os.makedirs(debug_path)
-    if not os.path.isdir(release_path):
-        os.makedirs(release_path)
-    '''
-    cef_debug_path = os.path.join('.', 'cef', 'bin', 'debug')
-    cef_release_path = os.path.join('.', 'cef', 'bin', 'release')
-    deepcopy(cef_debug_path, debug_path)
-    deepcopy(cef_release_path, release_path)
-    '''
-    
-    resources_path = os.path.join('.', 'cef', 'resources')
-    deepcopy(resources_path, debug_path)
-    deepcopy(resources_path, release_path)
+    cefBin = os.path.join('.', 'depends', 'cef-85', 'bin')
+    deepCopy(cefBin, shadowBin)
 
-def generate_sln():
-    root_pro_path = os.path.join('..', 'src', 'pcutil.pro')
-    command_list = [
+def generateSln():
+    rootProPath = os.path.join('..', 'cpp', 'pcutils.pro')
+    commandList = [
        'qmake',
         '-tp',
         'vc',
         '-r',
-        root_pro_path 
+        rootProPath 
     ]
     
-    sln_dir = 'shadow'
-    if os.path.exists(sln_dir):
-        shutil.rmtree(sln_dir)
+    slnDir = 'shadow'
+    if os.path.exists(slnDir):
+        shutil.rmtree(slnDir)
         
-    os.makedirs(sln_dir)
+    os.makedirs(slnDir)
     
-    result = subprocess.call(command_list, cwd=sln_dir)
+    result = subprocess.call(commandList, cwd=slnDir)
 
 if __name__ == '__main__':
-    copy_cef()
-    generate_sln()
+    generateSln()
+    copyDepends()
