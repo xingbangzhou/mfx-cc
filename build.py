@@ -19,9 +19,12 @@ def copyDepends():
     shadowBin = os.path.join('.', 'shadow', 'bin')
     if not os.path.isdir(shadowBin):
         os.makedirs(shadowBin)
-    
-    cefBin = os.path.join('.', 'depends', 'cef-85', 'bin')
-    deepCopy(cefBin, shadowBin)
+   
+    dependsPath = os.path.join('.', 'depends')
+    for files in os.listdir(dependsPath):
+        name = os.path.join(dependsPath, files, 'bin')
+        if os.path.isdir(name):
+            deepCopy(name, shadowBin)
 
 def generateSln():
     rootProPath = os.path.join('..', 'cpp', 'pcutils.pro')
