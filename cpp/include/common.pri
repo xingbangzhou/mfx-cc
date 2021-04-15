@@ -13,12 +13,10 @@ CONFIG -= embed_manifest_dll
 CharacterSet = 1
 
 CONFIG(debug, debug|release) {
-    QMAKE_LIBDIR += $$ROOT/bin/debug/lib
     QMAKE_LIBDIR += $$ROOT/bin/debug
     DESTDIR = $$ROOT/bin/debug
 }
 else {
-    QMAKE_LIBDIR += $$ROOT/bin/release/lib
     QMAKE_LIBDIR += $$ROOT/bin/release
     DESTDIR = $$ROOT/bin/release
 }

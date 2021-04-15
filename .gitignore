@@ -1,0 +1,22 @@
+.vs/
+/shadow/
+
+# vsfiles
+*.vcproj.user
+*.vcproj.*.user
+*.vcxproj.filters
+*.vcxproj.user
+*.vcxproj.*.user
+*.pro.user
+*.pdb
+*.idb
+*.obj
+stable.h.cpp
+stdafx.h.cpp
+*.ncb
+*.suo
+*.pyc
+*.ipch
+*.sdf
+*.opensdf
+*.aps
