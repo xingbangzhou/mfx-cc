@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef CEFCORE_GLOBAL_H
+#define CEFCORE_GLOBAL_H
 
 #include <qglobal.h>
 #include <stdint.h>
@@ -7,4 +8,6 @@
 #define CEFCORE_DECL_EXPORT __declspec(dllexport)
 #else
 #define CEFCORE_DECL_EXPORT __declspec(dllimport)
-#endif
+#endif // CEFCORE_IMPL
+
+#endif // CEFCORE_GLOBAL_H

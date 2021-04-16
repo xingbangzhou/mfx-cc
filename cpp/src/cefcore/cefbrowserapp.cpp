@@ -1,5 +1,5 @@
 #include "stable.h"
-#include "cefappbrowser.h"
+#include "cefbrowserapp.h"
 
 CefAppBrowser::CefAppBrowser()
 {

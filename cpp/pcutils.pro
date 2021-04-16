@@ -12,3 +12,5 @@ SUBDIRS = \
 cefcore.depends = libcef_dll_wrapper
 zed.depends = cefcore
 cefclient.depends = libcef_dll_wrapper
+
+DESTDIR = ../shadow

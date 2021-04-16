@@ -1,5 +1,5 @@
 ﻿#include "stable.h"
-#include "cefframework.h"
+#include "cefcore/cefframework.h"
 
 CefFramework* CefFramework::self = nullptr;
 
