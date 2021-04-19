@@ -50,8 +50,10 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
 
   // Parse command-line arguments.
   CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+  command_line->AppendSwitch("test");
   command_line->InitFromString(::GetCommandLineW());
-
+  command_line->AppendSwitch("-test \"true\"");
+  std::string str = command_line->GetSwitchValue("-test").ToString();
   // Create a ClientApp of the correct type.
   CefRefPtr<CefApp> app;
   ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);

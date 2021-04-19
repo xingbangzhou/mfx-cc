@@ -1,5 +1,10 @@
-#include "stable.h"
+﻿#include "stable.h"
+#include <QApplication>
 
-int main(int argn, char** argc) {
+#include "cefcore/cefframework.h"
+
+int main(int argc, char* argv[]) 
+{
+    QApplication app(argc, argv);
 
 }
