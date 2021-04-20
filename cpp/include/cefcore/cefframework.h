@@ -7,6 +7,7 @@
 class CEFCORE_DECL_EXPORT CefFramework : public QObject
 {
     Q_OBJECT;
+    Q_DECLARE_PRIVATE(CefFramework)
 
 public:
     CefFramework();
@@ -16,17 +17,18 @@ public:
     {
         return self;
     }
-    /*
-    * @brief 初始化之前调用
-    */
-    void appendCmd(const QString& name, const QString& value);
 
-    bool init(int argc, const char* const* argv);
+    // 调用时机：初始化前
+    void appendSwtich(const QString& name, const QString& value);
+
+    int init(int argc, const char* const* argv);
     void uninit();
+
+protected:
+    Q_DISABLE_COPY(CefFramework)
+
+    QScopedPointer<CefFrameworkPrivate> d_ptr;
 
 private:
     static CefFramework* self;
-
-    QList<QPair<QString,QString>> m_cmdExtras;
-    CefRefPtr<CefCommandLine> m_cmdLine;
 };

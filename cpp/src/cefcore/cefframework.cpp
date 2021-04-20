@@ -1,11 +1,14 @@
 ﻿#include "stable.h"
 #include "cefcore/cefframework.h"
 #include "include/cef_app.h"
+#include "cefframework_p.h"
 
 CefFramework* CefFramework::self = nullptr;
 
-CefFramework::CefFramework()
+CefFramework::CefFramework() : d_ptr(new CefFrameworkPrivate)
 {
+    Q_D(CefFramework);
+    d->q_ptr = this;
     self = this;
 }
 
@@ -14,25 +17,19 @@ CefFramework::~CefFramework()
 
 }
 
-void CefFramework::appendCmd(const QString& name, const QString& value)
+void CefFramework::appendSwtich(const QString& name, const QString& value)
 {
-    m_cmdExtras.push_back(qMakePair(name, value));
+    Q_D(CefFramework);
+    d->switchList.push_back(qMakePair(name, value));
 }
 
-bool CefFramework::init(int argc, const char* const* argv)
+int CefFramework::init(int argc, const char* const* argv)
 {
-    CefEnableHighDPISupport();
-    m_cmdLine = CefCommandLine::CreateCommandLine();
-    m_cmdLine->InitFromArgv(argc, argv);
-    for 
-        each(auto var in m_cmdExtras)
-        {
-            m_cmdLine->AppendSwitchWithValue(var.first, var.second);
-        }
-    return true;
+    Q_D(CefFramework);
+    return d->initEnv(argc, argv);
 }
 
 void CefFramework::uninit()
 {
-
+    
 }

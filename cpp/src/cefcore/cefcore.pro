@@ -16,10 +16,16 @@ DEFINES += CEFCORE_IMPL
 PRECOMPILED_HEADER = stable.h
 HEADERS += stable.h \
     cefappbase.h \
-    cefappbrowser.h \
-    cefframework.h
+	cefframework.h \
+	cefframework_p.h \
+	switches.h \
+    browser/cefappbrowser.h \
+	render/cefapprender.h
 
 SOURCES += \
     cefappbase.cpp \
-    cefappbrowser.cpp \
-    cefframework.cpp
+	cefframework.cpp \
+	cefframework_p.cpp \
+	switches.cpp \
+    browser/cefappbrowser.cpp \
+	render/cefapprender.cpp
