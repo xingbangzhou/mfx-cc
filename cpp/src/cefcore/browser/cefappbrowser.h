@@ -8,6 +8,8 @@ public:
     CefAppBrowser();
 
 private:
+    static CefRefPtr<CefPrintHandler> createPrintHandler();
+
     void OnBeforeCommandLineProcessing(const CefString& process_type, 
         CefRefPtr<CefCommandLine> command_line) OVERRIDE;
     CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler() OVERRIDE

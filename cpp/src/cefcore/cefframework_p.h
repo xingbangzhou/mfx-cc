@@ -1,24 +1,31 @@
 ﻿#ifndef CEFFRAMEWORK_P_H
 #define CEFFRAMEWORK_P_H
 
+#include "cefcore/cefframework.h"
 #include "include/internal/cef_ptr.h"
 #include "include/cef_command_line.h"
-#include "cefcore/cefframework.h"
+#include "include/cef_app.h"
 
-class CefFrameworkPrivate : public QObjectData
+#include <QList>
+#include <QPair>
+#include <QString>
+
+class CefFrameworkPrivate
 {
     Q_DECLARE_PUBLIC(CefFramework)
 
 public:
     CefFrameworkPrivate();
-    virtual ~CefFrameworkPrivate();
+    ~CefFrameworkPrivate();
     CefFramework* q_ptr;
 
+    CefRefPtr<CefApp> app;
     QList<QPair<QString, QString>> switchList;
     CefRefPtr<CefCommandLine> commandLine;
+    bool initialized;
 
 public:
-    int initEnv(int argc, const char* const* argv);
+    bool initEnv(int argc, const char* const* argv);
     void uninitEnv();
 };
 

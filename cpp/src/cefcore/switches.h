@@ -1,11 +1,5 @@
-﻿// Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
-// reserved. Use of this source code is governed by a BSD-style license that
-// can be found in the LICENSE file.
-
-// Defines all of the command line switches used by cefclient.
-
-#ifndef CEF_TESTS_SHARED_SHARED_COMMON_SWITCHES_H_
-#define CEF_TESTS_SHARED_SHARED_COMMON_SWITCHES_H_
+﻿#ifndef SWITCHES_H_
+#define SWITCHES_H_
 
 namespace switches {
 extern const char kMultiThreadedMessageLoop[];
@@ -38,4 +32,4 @@ extern const char kNoActivate[];
 
 }  // namespace switches
 
-#endif  // CEF_TESTS_SHARED_SHARED_COMMON_SWITCHES_H_
+#endif  // SWITCHES_H_

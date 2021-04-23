@@ -14,18 +14,19 @@ CONFIG += qt warn_off
 DEFINES += CEFCORE_IMPL
 
 PRECOMPILED_HEADER = stable.h
-HEADERS += stable.h \
-    cefappbase.h \
-	cefframework.h \
-	cefframework_p.h \
-	switches.h \
-    browser/cefappbrowser.h \
-	render/cefapprender.h
+HEADERS += \
+        stable.h \
+        cefappbase.h \
+        cefframework.h \
+        cefframework_p.h \
+        switches.h \
+        browser/cefappbrowser.h \
+        render/cefapprender.h
 
 SOURCES += \
-    cefappbase.cpp \
-	cefframework.cpp \
+        cefappbase.cpp \
+        cefframework.cpp \
 	cefframework_p.cpp \
 	switches.cpp \
-    browser/cefappbrowser.cpp \
+        browser/cefappbrowser.cpp \
 	render/cefapprender.cpp

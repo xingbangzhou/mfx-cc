@@ -1,10 +1,6 @@
-// Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
-// reserved. Use of this source code is governed by a BSD-style license that
-// can be found in the LICENSE file.
+﻿#include "stable.h"
+#include "switches.h"
 
-#include "common/client_switches.h"
-
-namespace client {
 namespace switches {
 
 // CEF and Chromium support a wide range of command-line switches. This file
@@ -46,4 +42,3 @@ const char kLoadExtension[] = "load-extension";
 const char kNoActivate[] = "no-activate";
 
 }  // namespace switches
-}  // namespace client
