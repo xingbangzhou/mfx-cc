@@ -1,10 +1,9 @@
-CEF Version:      85.3.9+gb045a6e+chromium-85.0.4183.102
-CEF URL:          https://bitbucket.org/chromiumembedded/cef.git
-                  @b045a6e9741202ed5d3a3e298bf71f41e15337ed
+Date:             April 24, 2021
 
-Chromium Version: 85.0.4183.102
+CEF Version:      90.5.9+gd330790+chromium-90.0.4430.85
+CEF URL:          https://bitbucket.org/chromiumembedded/cef.git
+                  @d330790ec686391a9c374cd253d5c6fc50b3704f
+
+Chromium Version: 90.0.4430.85
 Chromium URL:     https://chromium.googlesource.com/chromium/src.git
-                  @c57959fdf49a5035477d402a69964b1ba6e547dc
-				  
-下载（有道云笔记存储cef编译好的大文件）：
-https://github.com/DeppWang/youdaonote-pull.git（感谢）
+                  @62b4d706d57b4149db791122cd299fd2092c8f03
