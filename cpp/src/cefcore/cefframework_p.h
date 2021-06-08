@@ -5,10 +5,10 @@
 #include "include/internal/cef_ptr.h"
 #include "include/cef_command_line.h"
 #include "include/cef_app.h"
+#include "cefcore/cefmessageloop.h"
 
 #include <QList>
 #include <QPair>
-#include <QString>
 
 class CefFrameworkPrivate
 {
@@ -20,13 +20,30 @@ public:
     CefFramework* q_ptr;
 
     CefRefPtr<CefApp> app;
-    QList<QPair<QString, QString>> switchList;
     CefRefPtr<CefCommandLine> commandLine;
-    bool initialized;
+    scoped_ptr<CefMessageLoop> messageLoop;
+    
+    uint switchFlags;
+    int osrFrameRate;
+    bool transparentPrintingEnabled;
+    bool externalBeginFrameEnabled;
+#if defined(Q_OS_WIN)
+    bool sharedTextureEnabled;
+#endif
 
-public:
-    bool initEnv(int argc, const char* const* argv);
-    void uninitEnv();
+    std::string cachePath;
+    QColor backgroundColor;
+
+    bool initialize(int argc, const char* const* argv);
+    void shutdown();
+
+private:
+    bool m_initialized;
+    bool m_shutdown;
+
+    void _populateSettings(CefSettings* const settings);
+    void _createApp();
+    void _createMessageLoop(const CefSettings* const settings);
 };
 
 #endif //CEFFRAMEWORK_P_H

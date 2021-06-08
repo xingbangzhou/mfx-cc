@@ -7,55 +7,99 @@ CefFramework* CefFramework::self = nullptr;
 
 CefFramework::CefFramework() 
     : d_ptr(new CefFrameworkPrivate)
-    , m_backgroundColor(0)
 {
     Q_D(CefFramework);
     d->q_ptr = this;
 
-    Q_ASSERT_X(!self, "CefFramework", "there should be only one application object");
+    Q_ASSERT_X(!self, "CefFramework", "there should be only one framework object");
     CefFramework::self = this;
 }
 
 CefFramework::~CefFramework()
 {
     Q_D(CefFramework);
-    d->uninitEnv();
+    d->shutdown();
 }
 
-void CefFramework::setBackgroundColor(unsigned int value)
-{
-    m_backgroundColor = value;
-}
-
-unsigned int CefFramework::backgroundColor() const
-{
-    return m_backgroundColor;
-}
-
-void CefFramework::setMsgLoop(MessageLoop loop)
-{
-    m_msgLoop = loop;
-}
-
-void CefFramework::appendSwtich(const QString& name, const QString& value)
+void CefFramework::setSwitchFlag(SwitchFlag flag, bool on /*= true*/)
 {
     Q_D(CefFramework);
-    d->switchList.push_back(qMakePair(name, value));
-}
-
-bool CefFramework::init(int argc, const char* const* argv)
-{
-    Q_D(CefFramework);
-    return d->initEnv(argc, argv);
-}
-
-int CefFramework::exec()
-{
-    if (m_msgLoop)
+    if (on)
     {
-       return m_msgLoop();
+        d->switchFlags |= 1 << flag;
     }
-    
-    CefRunMessageLoop();
-    return 0;
+    else
+    {
+        d->switchFlags &= ~(1 << flag);
+    }
+}
+
+bool CefFramework::testSwitchFlag(SwitchFlag flag)
+{
+    Q_D(CefFramework);
+    return d->switchFlags & (1 << flag);
+}
+
+void CefFramework::setOsrFrameRate(int rate)
+{
+    Q_D(CefFramework);
+    d->osrFrameRate = rate;
+}
+
+void CefFramework::enableTransparentPrinting(bool enable /*= true*/)
+{
+    Q_D(CefFramework);
+    d->transparentPrintingEnabled = enable;
+}
+
+#if defined(Q_OS_WIN)
+void CefFramework::enableSharedTexture(bool enable /*= true*/)
+{
+    Q_D(CefFramework);
+    d->sharedTextureEnabled = enable;
+}
+#endif
+
+void CefFramework::enableExternalBeginFrame(bool enable /*= true*/)
+{
+    Q_D(CefFramework);
+    d->externalBeginFrameEnabled = enable;
+}
+
+void CefFramework::setCachePath(const std::string& path)
+{
+    Q_D(CefFramework);
+    d->cachePath = path;
+}
+
+const std::string& CefFramework::cachePath()
+{
+    Q_D(CefFramework);
+    return d->cachePath;
+}
+
+void CefFramework::setBackgroundColor(const QColor& color)
+{
+    Q_D(CefFramework);
+    d->backgroundColor = color;
+}
+
+const QColor& CefFramework::backgroundColor()
+{
+    Q_D(CefFramework);
+    return d->backgroundColor;
+}
+
+bool CefFramework::initialize(int argc, const char* const* argv)
+{
+    Q_D(CefFramework);
+    return d->initialize(argc, argv);
+}
+
+int CefFramework::run()
+{
+    Q_D(CefFramework);
+    // TODO: Init RootWindow
+
+    return d->messageLoop->run();
 }

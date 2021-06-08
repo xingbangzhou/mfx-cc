@@ -7,15 +7,6 @@ CefAppBrowser::CefAppBrowser()
 
 }
 
-CefRefPtr<CefPrintHandler> CefAppBrowser::createPrintHandler()
-{
-#if defined(OS_LINUX)
-    return new ClientPrintHandlerGtk();
-#else
-    return nullptr;
-#endif
-}
-
 void CefAppBrowser::OnBeforeCommandLineProcessing(const CefString& process_type, CefRefPtr<CefCommandLine> command_line)
 {
     if (process_type.empty())
@@ -58,7 +49,7 @@ void CefAppBrowser::OnBeforeCommandLineProcessing(const CefString& process_type,
 
 void CefAppBrowser::OnContextInitialized()
 {
-    m_printHandler = createPrintHandler();
+   
 }
 
 void CefAppBrowser::OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)

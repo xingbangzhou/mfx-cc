@@ -187,7 +187,6 @@ SOURCES += libcef_dll/shutdown_checker.cc \
            libcef_dll/transfer_util.cc \
            libcef_dll/base/cef_atomicops_x86_gcc.cc \
            libcef_dll/base/cef_bind_helpers.cc \
-           libcef_dll/base/cef_callback_helpers.cc \
            libcef_dll/base/cef_callback_internal.cc \
            libcef_dll/base/cef_lock.cc \
            libcef_dll/base/cef_lock_impl.cc \
