@@ -14,31 +14,35 @@ CONFIG += qt warn_off
 DEFINES += CEFCORE_IMPL
 
 PRECOMPILED_HEADER = stable.h
-HEADERS += stable.h cefcore_global.h
-
-HEADERS += cefframework.h cefframework_p.h
-SOURCES += cefframework.cpp cefframework_p.cpp
-
-HEADERS += switches.h
-SOURCES += switches.cpp
+HEADERS += \
+    stable.h \
+    cefcore_global.h \
+    cefframework.h \
+    cefmessageloopex.h
 
 HEADERS += \
-        cefappbase.h \
-        cefmsgloophelp.h \
-		cefmessageloop.h \
-        browser/cefappbrowser.h \
-        browser/messageloopmultithreaded.h \
-        browser/messageloopexternalpump.h \
-        browser/messageloopstd.h
-
-SOURCES += \        
-        browser/cefappbrowser.cpp \
-        browser/messageloopmultithreaded.cpp \
-        browser/messageloopexternalpump.cpp \
-        browser/messageloopstd.cpp
-
-HEADERS += \
-        render/cefapprender.h
+    cefframework_p.h \
+    switches.h \
+    cefappbase.h \
+    messageloop.h \
+    messageloopex.h \
+    browser/cefappbrowser.h \
+    browser/messageloopstd.h \
+    browser/messageloopexternalpump.h \
+    browser/messageloopmultithreaded.h \
+    browser/rootwindow.h \
+    browser/rootwindowmanager.h \
+    render/cefapprender.h
 
 SOURCES += \
-        render/cefapprender.cpp
+    cefframework.cpp \
+    cefframework_p.cpp \
+    switches.cpp \
+    messageloopex.cpp \
+    browser/cefappbrowser.cpp \
+    browser/messageloopstd.cpp \
+    browser/messageloopexternalpump.cpp \
+    browser/messageloopmultithreaded.cpp \
+    browser/rootwindow.cpp \
+    browser/rootwindowmanager.cpp \
+    render/cefapprender.cpp

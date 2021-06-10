@@ -2,6 +2,7 @@
 #define CEFFRAMEWORK_H
 
 #include "cefcore/cefcore_global.h"
+#include "cefmessageloopex.h"
 
 #include <QObject>
 #include <QScopedPointer>
@@ -51,6 +52,8 @@ public:
 
     void setBackgroundColor(const QColor& color);
     const QColor& backgroundColor();
+
+    CefMessageLoopEx* const messageLoopEx();
 
     bool initialize(int argc, const char* const* argv);
 

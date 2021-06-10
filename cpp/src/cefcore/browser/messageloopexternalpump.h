@@ -1,19 +1,21 @@
 ﻿#ifndef MESSAGELOOPEXTERNALPUMP_H
 #define MESSAGELOOPEXTERNALPUMP_H
-#include "cefcore/cefmessageloop.h"
+#include "messageloopstd.h"
 #include "qcompilerdetection.h"
 #include "include/base/cef_basictypes.h"
+#include "cefcore/cefmessageloopex.h"
 
-class MessageLoopExternalPump : public CefMessageLoop
+class MessageLoopExternalPump : public MessageLoopStd
 {
 public:
-    MessageLoopExternalPump();
-    ~MessageLoopExternalPump();
+    explicit MessageLoopExternalPump();
+    virtual ~MessageLoopExternalPump();
 
     int run() Q_DECL_OVERRIDE;
+
     void quit() Q_DECL_OVERRIDE;
 
-    void setRunner(MessageLoopRunner runner)
+    void setRunner(CefMessageLoopEx::ExternalRunner runner)
     {
         m_runner = runner;
     };
@@ -21,7 +23,7 @@ public:
     void OnScheduleMessagePumpWork(int64 delay_ms);
     
 private:
-    MessageLoopRunner m_runner;
+    CefMessageLoopEx::ExternalRunner m_runner;
 };
 
-#endif
+#endif // MESSAGELOOPEXTERNALPUMP_H

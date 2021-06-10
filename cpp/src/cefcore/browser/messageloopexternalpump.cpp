@@ -17,8 +17,9 @@ int MessageLoopExternalPump::run()
 {
     if (m_runner)
     {
-        m_runner();
+        return m_runner();
     }
+    return 0;
 }
 
 void MessageLoopExternalPump::quit()

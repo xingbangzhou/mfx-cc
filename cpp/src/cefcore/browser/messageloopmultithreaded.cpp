@@ -11,6 +11,7 @@ MessageLoopMultiThread::~MessageLoopMultiThread()
 
 int MessageLoopMultiThread::run()
 {
+    return 0;
 }
 
 void MessageLoopMultiThread::quit()

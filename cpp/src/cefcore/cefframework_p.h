@@ -5,7 +5,8 @@
 #include "include/internal/cef_ptr.h"
 #include "include/cef_command_line.h"
 #include "include/cef_app.h"
-#include "cefcore/cefmessageloop.h"
+#include "messageloop.h"
+#include "messageloopex.h"
 
 #include <QList>
 #include <QPair>
@@ -21,7 +22,8 @@ public:
 
     CefRefPtr<CefApp> app;
     CefRefPtr<CefCommandLine> commandLine;
-    scoped_ptr<CefMessageLoop> messageLoop;
+    scoped_ptr<MessageLoop> messageLoop;
+    MessageLoopEx messageLoopEx;
     
     uint switchFlags;
     int osrFrameRate;

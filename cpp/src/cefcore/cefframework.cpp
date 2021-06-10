@@ -90,6 +90,12 @@ const QColor& CefFramework::backgroundColor()
     return d->backgroundColor;
 }
 
+CefMessageLoopEx* const CefFramework::messageLoopEx()
+{
+    Q_D(CefFramework);
+    return &d->messageLoopEx;
+}
+
 bool CefFramework::initialize(int argc, const char* const* argv)
 {
     Q_D(CefFramework);
