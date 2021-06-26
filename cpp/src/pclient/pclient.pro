@@ -8,8 +8,6 @@ CONFIG += qt
 
 QT += widgets
 
-LIBS += cefcore.lib
-
 PRECOMPILED_HEADER = stable.h
 HEADERS += stable.h
 
