@@ -8,14 +8,18 @@ VPATH += $$ROOT/include/pluginframework
 
 CONFIG += qt
 
-DEFINES += PLUGINFRAMEWORK_IMPL
+DEFINES += UUPLUGINFW_IMPL
 
 PRECOMPILED_HEADER = stable.h
 HEADERS += \
         stable.h \
+        uuplugin_p.h \
+        uuplugincontext_p.h \
+        uupluginfwexport.h \
         uupluginframeworkcontext_p.h \
         uupluginfw_global.h \
         uuplugin.h \
+        uupluginactivator.h \
         uuplugincontext.h \
         uupluginframework.h \
         uupluginframeworkfactory.h \
@@ -23,7 +27,9 @@ HEADERS += \
 
 SOURCES += \
         uuplugin.cpp \
+        uuplugin_p.cpp \
         uuplugincontext.cpp \
+        uuplugincontext_p.cpp \
         uupluginframework.cpp \
         uupluginframeworkcontext_p.cpp \
         uupluginframeworkfactory.cpp \

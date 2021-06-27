@@ -1,6 +1,6 @@
 #ifndef UUPLUGIN_H
 #define UUPLUGIN_H
-#include "uupluginfw_global.h"
+#include "uupluginfwexport.h"
 
 #include <QMetaType>
 #include <QUrl>
@@ -27,34 +27,23 @@ public:
     };
     Q_DECLARE_FLAGS(States, State)
 
-    enum StartOption
-    {
-        START_TRANSIENT = 0x00000001,
-        START_ACTIVATION_POLICY = 0x00000002
-    };
-    Q_DECLARE_FLAGS(StartOptions, StartOption)
-
-    enum StopOption
-    {
-        STOP_TRANSIENT = 0x00000001
-    };
-    Q_DECLARE_FLAGS(StopOptions, StopOption)
-
     virtual ~uuPlugin();
 
     State getState() const;
 
-    virtual void start(const StartOptions& options = START_ACTIVATION_POLICY);
+    virtual void start();
 
-    virtual void stop(const StopOptions& options = 0);
-
-    void update(const QUrl &updateLocation = QUrl());
+    virtual void stop();
 
     virtual void uninstall();
 
     uuPluginContext* getPluginContext() const;
 
     long getPluginId() const;
+
+    QString getLocation() const;
+
+    QString getSymbolicName() const;
 
 protected:
     friend class uuPluginPrivate;
@@ -71,7 +60,7 @@ private:
 };
 
 Q_DECL_METATYPE(uuPlugin*)
-Q_DECL_METATYPE(QSharedPointer<uuPlugin>)
+Q_DECLARE_METATYPE(QSharedPointer<uuPlugin>)
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(uuPlugin::States)
 Q_DECLARE_OPERATORS_FOR_FLAGS(uuPlugin::StartOptions)
