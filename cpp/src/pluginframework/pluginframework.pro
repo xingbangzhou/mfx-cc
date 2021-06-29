@@ -15,9 +15,11 @@ HEADERS += \
         stable.h \
         uuplugin_p.h \
         uuplugincontext_p.h \
+        uupluginframework_p.h \
         uupluginfwexport.h \
         uupluginframeworkcontext_p.h \
         uupluginfw_global.h \
+        uuplugin_constants.h \
         uuplugin.h \
         uupluginactivator.h \
         uuplugincontext.h \
@@ -29,8 +31,9 @@ SOURCES += \
         uuplugin.cpp \
         uuplugin_p.cpp \
         uuplugincontext.cpp \
-        uuplugincontext_p.cpp \
         uupluginframework.cpp \
+        uupluginframework_p.cpp \
         uupluginframeworkcontext_p.cpp \
         uupluginframeworkfactory.cpp \
-        uuplugins_p.cpp
+        uuplugins_p.cpp \
+        uuplugin_constants.cpp

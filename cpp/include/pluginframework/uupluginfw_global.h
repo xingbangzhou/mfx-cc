@@ -4,6 +4,4 @@
 #include <QHash>
 #include <QVariant>
 
-typedef QHash<QString, QVariant>  uuProperties;
-
 #endif // UUPLUGINFW_GLOBAL_H

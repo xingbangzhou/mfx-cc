@@ -1,10 +1,12 @@
 #ifndef UUPLUGIN_H
 #define UUPLUGIN_H
-#include "uupluginfwexport.h"
 
 #include <QMetaType>
 #include <QUrl>
 #include <QSharedPointer>
+#include <QWeakPointer>
+
+#include "uupluginfwexport.h"
 
 class uuPluginContext;
 class uuPluginFramework;
@@ -39,31 +41,26 @@ public:
 
     uuPluginContext* getPluginContext() const;
 
-    long getPluginId() const;
-
     QString getLocation() const;
-
-    QString getSymbolicName() const;
 
 protected:
     friend class uuPluginPrivate;
+    friend class uuPlugins;
 
     uuPluginPrivate* d_ptr;
 
-    explicit uuPlugin();
+    uuPlugin();
     void init(uuPluginPrivate* dd);
-    void init(const QWeakPointer<uuPlugin>& self, uuPluginFrameworkContext* fw);
+    void init(const QWeakPointer<uuPlugin>& self, uuPluginFrameworkContext* fw, const QString& loc);
 
 private:
     Q_DECLARE_PRIVATE(uuPlugin)
     Q_DISABLE_COPY(uuPlugin)
 };
 
-Q_DECL_METATYPE(uuPlugin*)
+Q_DECLARE_METATYPE(uuPlugin*)
 Q_DECLARE_METATYPE(QSharedPointer<uuPlugin>)
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(uuPlugin::States)
-Q_DECLARE_OPERATORS_FOR_FLAGS(uuPlugin::StartOptions)
-Q_DECLARE_OPERATORS_FOR_FLAGS(uuPlugin::StopOptions)
 
 #endif // UUPLUGIN_H

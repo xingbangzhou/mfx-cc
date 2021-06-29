@@ -1,6 +1,17 @@
 #include "uuplugin_p.h"
 #include "pluginframework/uuplugincontext.h"
 
+#include <QDateTime>
+
+qint64 msecsTo(const QDateTime& t1, const QDateTime& t2)
+{
+    QDateTime utcT1 = t1.toUTC();
+    QDateTime utcT2 = t2.toUTC();
+
+    return static_cast<qint64>(utcT1.daysTo(utcT2)) * static_cast<qint64>(1000*3600*24)
+      + static_cast<qint64>(utcT1.time().msecsTo(utcT2.time()));
+}
+
 const uuPlugin::States uuPluginPrivate::RESOLVED_FLAGS = uuPlugin::RESOLVED | uuPlugin::STARTING | uuPlugin::ACTIVE | uuPlugin::STOPPING;
 
 //----------------------------------------------------------------------------
@@ -42,12 +53,10 @@ void uuPluginPrivate::LockObject::wakeOne()
 //----------------------------------------------------------------------------
 uuPluginPrivate::uuPluginPrivate(QWeakPointer<uuPlugin> qq,
                                  uuPluginFrameworkContext* fw,
-                                 long id,
-                                 const QString& loc,
-                                 const QString& sym)
-    : q_ptr(qq), fwCtx(fw), id(id), location(loc), symbolicName(sym),
+                                 const QString& loc)
+    : q_ptr(qq), fwCtx(fw), location(loc),
       state(uuPlugin::INSTALLED), pluginContext(NULL), pluginActivator(NULL),
-      eagerActivation(false)
+      pluginLoader(loc)
 {
 
 }
@@ -64,6 +73,22 @@ uuPlugin::State uuPluginPrivate::getUpdatedState()
     {
         Locker sync(&operationLock);
         getUpdatedState_unlocked();
+    }
+    return state;
+}
+
+uuPlugin::State uuPluginPrivate::getUpdatedState_unlocked()
+{
+    if (state & uuPlugin::INSTALLED)
+    {
+        if (state == uuPlugin::INSTALLED)
+        {
+            operation.fetchAndStoreOrdered(RESOLVING);
+            // fwCtx->resolvePlugin(this);
+            state = uuPlugin::RESOLVED;
+            // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::RESOLVED, this->q_func()));
+            operation.fetchAndStoreOrdered(IDLE);
+        }
     }
     return state;
 }
@@ -109,21 +134,18 @@ void uuPluginPrivate::stop0()
 
 void uuPluginPrivate::waitOnOperation(LockObject* lock, const QString& src, bool longWait)
 {
-
-}
-
-uuPlugin::State uuPluginPrivate::getUpdatedState_unlocked()
-{
-    if (state & uuPlugin::INSTALLED)
+    if (operation.fetchAndAddOrdered(0) != IDLE)
     {
-        if (state == uuPlugin::INSTALLED)
+        quint64 left = longWait ? 20000 : 500;
+        QDateTime waitUntil = QDateTime::currentDateTime().addMSecs(left);
+        do
         {
-            operation.fetchAndStoreOrdered(RESOLVING);
-            // fwCtx->resolvePlugin(this);
-            state = uuPlugin::RESOLVED;
-            // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::RESOLVED, this->q_func()));
-            operation.fetchAndStoreOrdered(IDLE);
-        }
+            lock->wait(left);
+            if (operation.fetchAndOrOrdered(0) == IDLE)
+            {
+                return;
+            }
+            left = msecsTo(QDateTime::currentDateTime(), waitUntil);
+        } while (left > 0);
     }
-    return state;
 }

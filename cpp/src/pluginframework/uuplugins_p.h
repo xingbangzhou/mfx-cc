@@ -15,6 +15,7 @@ class uuPluginFrameworkContext;
 class uuPlugins
 {
 private:
+
     QHash<QString, QSharedPointer<uuPlugin> > plugins;
 
     uuPluginFrameworkContext* fwCtx;
@@ -23,28 +24,22 @@ private:
 
     QMutex objectLock;
 
-    void checkIllegalState() const;
-
 public:
-    uuPlugins(uuPluginFrameworkContext* fw);
+    explicit uuPlugins(uuPluginFrameworkContext* fw);
 
     void clear();
 
-    QSharedPointer<uuPlugin> install(const QUrl& location, QIODevice* in);
+    QSharedPointer<uuPlugin> install(const QUrl& location);
 
     void remove(const QUrl& location);
 
-    QSharedPointer<uuPlugin> getPlugin(int id) const;
-
     QSharedPointer<uuPlugin> getPlugin(const QString& location) const;
 
-     QList<QSharedPointer<uuPlugin> > getPlugins() const;
+    QList<QSharedPointer<uuPlugin> > getPlugins() const;
 
-     QList<QSharedPointer<uuPlugin> > getActivePlugins() const;
+    QList<QSharedPointer<uuPlugin> > getActivePlugins() const;
 
-     void load();
-
-     void startPlugins(const QList<uuPlugin*>& slist) const;
+    void startPlugins(const QList<uuPlugin*>& slist) const;
 };
 
 #endif // UUPLUGINS_P_H

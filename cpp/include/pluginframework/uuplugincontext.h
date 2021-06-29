@@ -1,12 +1,15 @@
 #ifndef UUPLUGINCONTEXT_H
 #define UUPLUGINCONTEXT_H
+
 #include <QSharedPointer>
+#include <QIODevice>
 
 #include "uupluginfwexport.h"
 
 class uuPlugin;
 class uuPluginPrivate;
 class uuPluginContextPrivate;
+class uuPluginFrameworkPrivate;
 
 class UUPLUGINFW_EXPORT uuPluginContext
 {
@@ -15,13 +18,14 @@ public:
 
     QSharedPointer<uuPlugin> getPlugin() const;
 
-    QSharedPointer<uuPlugin> getPlugin(long id) const;
-
     QList<QSharedPointer<uuPlugin> > getPlugins() const;
+
+    QSharedPointer<uuPlugin> installPlugin(const QUrl& location, QIODevice* input = NULL);
 
 protected:
     friend class uuPlugin;
     friend class uuPluginPrivate;
+    friend class uuPluginFrameworkPrivate;
 
     explicit uuPluginContext(uuPluginPrivate* plugin);
 

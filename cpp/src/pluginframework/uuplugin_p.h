@@ -3,6 +3,7 @@
 #include <QWeakPointer>
 #include <QMutex>
 #include <QWaitCondition>
+#include <QPluginLoader>
 
 #include "pluginframework/uuplugin.h"
 
@@ -50,9 +51,7 @@ public:
 
     explicit uuPluginPrivate(QWeakPointer<uuPlugin> qq,
                              uuPluginFrameworkContext* fw,
-                             long id,
-                             const QString& loc,
-                             const QString& sym
+                             const QString& loc
                              );
     virtual ~uuPluginPrivate();
 
@@ -70,11 +69,7 @@ public:
 
     uuPluginFrameworkContext * const fwCtx;
 
-    const long id;
-
     const QString location;
-
-    QString symbolicName;
 
     uuPlugin::State state;
 
@@ -82,7 +77,7 @@ public:
 
     uuPluginActivator* pluginActivator;
 
-    bool eagerActivation;
+    QPluginLoader pluginLoader;
 
     QAtomicInt operation;
     static const int IDLE = 0;

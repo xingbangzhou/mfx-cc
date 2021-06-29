@@ -16,10 +16,10 @@ void uuPlugin::init(uuPluginPrivate* dd)
     d_ptr = dd;
 }
 
-void uuPlugin::init(const QWeakPointer<uuPlugin>& self, uuPluginFrameworkContext* fw)
+void uuPlugin::init(const QWeakPointer<uuPlugin> &self, uuPluginFrameworkContext *fw, const QString &loc)
 {
-    if (d_ptr) return;//throw ctkIllegalStateException("ctkPlugin already initialized");
-    d_ptr = new uuPluginPrivate(self, fw, pa);
+    if (d_ptr) return; //throw ctkIllegalStateException("ctkPlugin already initialized");
+    d_ptr = new uuPluginPrivate(self, fw, loc);
 }
 
 uuPlugin::State uuPlugin::getState() const
@@ -47,7 +47,6 @@ void uuPlugin::start()
     if (!d->eagerActivation)
     {
         if (STARTING == d->state) return;
-        d->state = STARTING;
         d->state = STARTING;
         d->pluginContext.reset(new uuPluginContext(this->d_func()));
         // ctkPluginEvent pluginEvent(ctkPluginEvent::LAZY_ACTIVATION, d->q_ptr);
@@ -113,7 +112,6 @@ void uuPlugin::uninstall()
             d->operation.fetchAndStoreOrdered(uuPluginPrivate::UNINSTALLING);
         }
 
-        d->state = INSTALLED;
         // d->fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::UNRESOLVED, d->q_func()));
         d->pluginActivator = 0;
         d->state = UNINSTALLED;
@@ -131,20 +129,8 @@ uuPluginContext* uuPlugin::getPluginContext() const
     return d->pluginContext.data();
 }
 
-long uuPlugin::getPluginId() const
-{
-    Q_D(const uuPlugin);
-    return d->id;
-}
-
 QString uuPlugin::getLocation() const
 {
   Q_D(const uuPlugin);
   return d->location;
-}
-
-QString uuPlugin::getSymbolicName() const
-{
-  Q_D(const uuPlugin);
-  return d->symbolicName;
 }

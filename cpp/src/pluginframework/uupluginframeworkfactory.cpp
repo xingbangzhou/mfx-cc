@@ -1,18 +1,21 @@
 #include "stable.h"
 #include "pluginframework/uupluginframeworkfactory.h"
 
-uuPluginFrameworkFactory::uuPluginFrameworkFactory(const uuProperties& initProps)
+#include "uupluginframeworkcontext_p.h"
+
+uuPluginFrameworkFactory::uuPluginFrameworkFactory()
     : fwCtx(NULL)
 {
-
+    fwCtx = new uuPluginFrameworkContext();
 }
 
 uuPluginFrameworkFactory::~uuPluginFrameworkFactory()
 {
-
+    fwCtx->uninit();
+    delete fwCtx;
 }
 
 QSharedPointer<uuPluginFramework> uuPluginFrameworkFactory::getFramework()
 {
-
+    return fwCtx->systemPlugin;
 }
