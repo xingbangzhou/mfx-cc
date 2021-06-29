@@ -18,7 +18,7 @@ HEADERS += \
         uupluginframework_p.h \
         uupluginfwexport.h \
         uupluginframeworkcontext_p.h \
-        uupluginfw_global.h \
+        uuplugin_global.h \
         uuplugin_constants.h \
         uuplugin.h \
         uupluginactivator.h \

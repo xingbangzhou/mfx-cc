@@ -17,6 +17,17 @@ public:
     void initSystemPlugin();
 
     void uninitSystemPlugin();
+
+    void activate(uuPluginContext* context);
+    void deactivate(uuPluginContext* context);
+
+    void shutdown();
+
+private:
+
+    void shutdown0(bool wasActive);
+
+    void stopAllPlugins();
 };
 
 #endif // UUPLUGINFRAMEWORKPRIVATE_H

@@ -3,6 +3,7 @@
 #include "pluginframework/uuplugin_constants.h"
 #include "uupluginframeworkcontext_p.h"
 #include "pluginframework/uuplugincontext.h"
+#include "uuplugincontext_p.h"
 
 uuPluginFrameworkPrivate::uuPluginFrameworkPrivate(QWeakPointer<uuPlugin> qq, uuPluginFrameworkContext* fw)
     : uuPluginPrivate(qq, fw, uuPluginConstants::SYSTEM_PLUGIN_LOCATION)
@@ -23,5 +24,60 @@ void uuPluginFrameworkPrivate::initSystemPlugin()
 
 void uuPluginFrameworkPrivate::uninitSystemPlugin()
 {
+    this->pluginContext->d_func()->invalidate();
+}
 
+void uuPluginFrameworkPrivate::activate(uuPluginContext *context)
+{
+
+}
+
+void uuPluginFrameworkPrivate::deactivate(uuPluginContext *context)
+{
+
+}
+
+void uuPluginFrameworkPrivate::shutdown()
+{
+    Locker sync(&lock);
+
+    bool wasActive = false;
+    switch (state)
+    {
+    case uuPlugin::INSTALLED:
+    case uuPlugin::RESOLVED:
+        break;
+    case uuPlugin::ACTIVE:
+        wasActive = true;
+    case uuPlugin::STARTING:
+        shutdown0(wasActive);
+        break;
+    case uuPlugin::STOPPING:
+    case uuPlugin::UNINSTALLED:
+        break;
+    }
+}
+
+void uuPluginFrameworkPrivate::shutdown0(bool wasActive)
+{
+    {
+        Locker sync(&lock);
+        waitOnOperation(&lock, "Framework::stop", true);
+        operation = DEACTIVATING;
+        state = uuPlugin::STOPPING;
+    }
+
+    // fwCtx->listeners.emitPluginChanged(
+    //       ctkPluginEvent(ctkPluginEvent::STOPPING, this->q_func()));
+
+    if (wasActive)
+    {
+        stopAllPlugins();
+        deactivate(this->pluginContext.data());
+    }
+
+    {
+        Locker sync(&lock);
+        fwCtx->uninit();
+    }
 }
