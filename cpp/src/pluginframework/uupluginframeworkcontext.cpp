@@ -1,5 +1,5 @@
 #include "stable.h"
-#include "uupluginframeworkcontext_p.h"
+#include "uupluginframeworkcontext.h"
 #include "uupluginframework_p.h"
 
 uuPluginFrameworkContext::uuPluginFrameworkContext()

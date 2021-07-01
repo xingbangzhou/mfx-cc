@@ -1,4 +1,4 @@
-#ifndef UUPLUGINACTIVATOR_H
+﻿#ifndef UUPLUGINACTIVATOR_H
 #define UUPLUGINACTIVATOR_H
 
 #include "uuplugincontext.h"
@@ -8,7 +8,7 @@ class uuPluginActivator
 public:
     virtual ~uuPluginActivator() {}
 
-    virtual void start(uuPluginContext* context);
+    virtual void start(uuPluginContext* context) = 0;
 
     virtual void stop(uuPluginContext* context) = 0;
 };

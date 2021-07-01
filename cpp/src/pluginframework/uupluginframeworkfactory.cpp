@@ -1,7 +1,7 @@
 #include "stable.h"
 #include "pluginframework/uupluginframeworkfactory.h"
 
-#include "uupluginframeworkcontext_p.h"
+#include "uupluginframeworkcontext.h"
 
 uuPluginFrameworkFactory::uuPluginFrameworkFactory()
     : fwCtx(NULL)

@@ -94,7 +94,12 @@ private:
 
     void startDependencies();
 
+    // Remove a plugins registered listeners, registered services and
+    // used services.
+    void removePluginResources();
+
     uuPlugin::State getUpdatedState_unlocked();
+
 };
 
 #endif // UUPLUGIN_P_H

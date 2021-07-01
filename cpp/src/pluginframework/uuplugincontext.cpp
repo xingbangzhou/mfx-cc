@@ -1,24 +1,19 @@
 #include "stable.h"
 #include "pluginframework/uuplugincontext.h"
-#include "uuplugincontext_p.h"
 #include "uuplugin_p.h"
-#include "uupluginframeworkcontext_p.h"
+#include "uupluginframeworkcontext.h"
+#include "uuplugincontext_p.h"
 
 //----------------------------------------------------------------------------
 uuPluginContextPrivate::uuPluginContextPrivate(uuPluginPrivate* plugin)
-  : plugin(plugin)
-{}
-
-void uuPluginContextPrivate::isPluginContextValid() const
+    : plugin(plugin)
 {
-  if (!plugin) {
-    // throw ctkIllegalStateException("This plugin context is no longer valid");
-  }
+
 }
 
 void uuPluginContextPrivate::invalidate()
 {
-  plugin = NULL;
+    plugin = NULL;
 }
 
 //----------------------------------------------------------------------------
@@ -34,21 +29,18 @@ uuPluginContext::~uuPluginContext()
 
 QSharedPointer<uuPlugin> uuPluginContext::getPlugin() const
 {
-  Q_D(const uuPluginContext);
-  d->isPluginContextValid();
-  return d->plugin->q_func();
+    Q_D(const uuPluginContext);
+    return d->plugin->q_func();
 }
 
 QList<QSharedPointer<uuPlugin> > uuPluginContext::getPlugins() const
 {
     Q_D(const uuPluginContext);
-    d->isPluginContextValid();
     return d->plugin->fwCtx->plugins->getPlugins();
 }
 
-QSharedPointer<uuPlugin> uuPluginContext::installPlugin(const QUrl& location, QIODevice* in)
+QSharedPointer<uuPlugin> uuPluginContext::installPlugin(const QUrl& location)
 {
     Q_D(uuPluginContext);
-    d->isPluginContextValid();
-    return d->plugin->fwCtx->plugins->install(location, in);
+    return d->plugin->fwCtx->plugins->install(location);
 }

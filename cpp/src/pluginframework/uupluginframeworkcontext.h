@@ -1,8 +1,8 @@
-#ifndef UUPLUGINFRAMEWORKCONTEXT_P_H
-#define UUPLUGINFRAMEWORKCONTEXT_P_H
+#ifndef UUPLUGINFRAMEWORKCONTEXT_H
+#define UUPLUGINFRAMEWORKCONTEXT_H
 
 #include "pluginframework/uupluginframework.h"
-#include "uuplugins_p.h"
+#include "uuplugins.h"
 
 class uuPluginFrameworkContext
 {
@@ -23,4 +23,4 @@ private:
     bool initialized;
 };
 
-#endif // UUPLUGINFRAMEWORKCONTEXT_P_H
+#endif // UUPLUGINFRAMEWORKCONTEXT_H

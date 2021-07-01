@@ -1,6 +1,8 @@
-#include "stable.h"
-#include "uuplugins_p.h"
-#include "uupluginframeworkcontext_p.h"
+﻿#include "stable.h"
+#include "uuplugins.h"
+#include "uupluginframeworkcontext.h"
+
+#include <iostream>
 
 uuPlugins::uuPlugins(uuPluginFrameworkContext* fw)
 {
@@ -35,10 +37,11 @@ QSharedPointer<uuPlugin> uuPlugins::install(const QUrl &location)
     else
     {
         localPluginPath = location.toLocalFile();
+        std::cout << localPluginPath.toStdString() << std::endl;
     }
 
     res = QSharedPointer<uuPlugin>(new uuPlugin());
-    res->init(res, fwCtx, location.toString());
+    res->init(res, fwCtx, localPluginPath);
     plugins.insert(location.toString(), res);
 
     // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::INSTALLED, res));

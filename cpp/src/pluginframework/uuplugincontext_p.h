@@ -1,19 +1,16 @@
-#ifndef UUPLUGINCONTEXT_P_H
-#define UUPLUGINCONTEXT_P_H
+#ifndef UUPLUGINCONTEXTPRIVATE_H
+#define UUPLUGINCONTEXTPRIVATE_H
 
 class uuPluginPrivate;
 
 class uuPluginContextPrivate
 {
 public:
-
     uuPluginPrivate* plugin;
 
     uuPluginContextPrivate(uuPluginPrivate* plugin);
 
-    void isPluginContextValid() const;
-
     void invalidate();
 };
 
-#endif // UUPLUGINCONTEXT_P_H
+#endif // UUPLUGINCONTEXTPRIVATE_H

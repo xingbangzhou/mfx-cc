@@ -1,4 +1,4 @@
-#ifndef UUPLUGIN_H
+﻿#ifndef UUPLUGIN_H
 #define UUPLUGIN_H
 
 #include <QMetaType>

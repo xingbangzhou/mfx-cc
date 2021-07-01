@@ -1,5 +1,5 @@
-#ifndef UUPLUGINS_P_H
-#define UUPLUGINS_P_H
+#ifndef UUPLUGINS_H
+#define UUPLUGINS_H
 
 #include <QUrl>
 #include <QHash>

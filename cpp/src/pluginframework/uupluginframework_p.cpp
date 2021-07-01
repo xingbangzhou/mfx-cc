@@ -1,7 +1,7 @@
-#include "stable.h"
+﻿#include "stable.h"
 #include "uupluginframework_p.h"
 #include "pluginframework/uuplugin_constants.h"
-#include "uupluginframeworkcontext_p.h"
+#include "uupluginframeworkcontext.h"
 #include "pluginframework/uuplugincontext.h"
 #include "uuplugincontext_p.h"
 
@@ -29,12 +29,12 @@ void uuPluginFrameworkPrivate::uninitSystemPlugin()
 
 void uuPluginFrameworkPrivate::activate(uuPluginContext *context)
 {
-
+    context;
 }
 
 void uuPluginFrameworkPrivate::deactivate(uuPluginContext *context)
 {
-
+    context;
 }
 
 void uuPluginFrameworkPrivate::shutdown()
@@ -79,5 +79,26 @@ void uuPluginFrameworkPrivate::shutdown0(bool wasActive)
     {
         Locker sync(&lock);
         fwCtx->uninit();
+        if (state != uuPlugin::INSTALLED)
+        {
+            state =uuPlugin::RESOLVED;
+            operation.fetchAndStoreOrdered(IDLE);
+            lock.wakeAll();
+        }
+    }
+}
+
+void uuPluginFrameworkPrivate::stopAllPlugins()
+{
+    QList<QSharedPointer<uuPlugin> > activePlugins = fwCtx->plugins->getActivePlugins();
+    QListIterator<QSharedPointer<uuPlugin> > it(activePlugins);
+    it.toBack();
+    while (it.hasPrevious())
+    {
+        QSharedPointer<uuPlugin> p = it.previous();
+        if (p->getState() & (uuPlugin::ACTIVE | uuPlugin::STARTING))
+        {
+            p->stop();
+        }
     }
 }

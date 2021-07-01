@@ -4,12 +4,13 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 SUBDIRS = \
-        #src/libcef_dll_wrapper \
-        #src/cefcore \
-        src/pluginframework \
+	#src/libcef_dll_wrapper \
+	#src/cefcore \
+	src/plugins \
+	src/pluginframework \
 	src/pclient
 
 #cefcore.depends = libcef_dll_wrapper
-#pclient.depends = cefcore
+pclient.depends = pluginframework
 
 DESTDIR = ../shadow

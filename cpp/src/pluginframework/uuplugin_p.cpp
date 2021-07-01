@@ -1,7 +1,10 @@
-#include "uuplugin_p.h"
+﻿#include "uuplugin_p.h"
 #include "pluginframework/uuplugincontext.h"
+#include "pluginframework/uupluginactivator.h"
+#include "uuplugincontext_p.h"
 
 #include <QDateTime>
+#include <iostream>
 
 qint64 msecsTo(const QDateTime& t1, const QDateTime& t2)
 {
@@ -123,17 +126,104 @@ void uuPluginPrivate::finalizeActivation()
         return;
     case uuPlugin::UNINSTALLED:
         return;
+    }
+}
+
+void uuPluginPrivate::start0()
+{
+    QString error = QString::null;
+
+    // fwCtx->listeners.emitPluginChanged(uuPluginEvent(uuPluginEvent::STARTING, this->q_func()));
+
+    try
+    {
+        if (!pluginLoader.load())
+        {
+            error = QString("Loading plugin %1 failed: %2").arg(pluginLoader.fileName()).arg(pluginLoader.errorString());
+            throw std::exception();
+        }
+
+        pluginActivator = qobject_cast<uuPluginActivator*>(pluginLoader.instance());
+        if(!pluginActivator)
+        {
+            throw std::exception();
+        }
+
+        pluginActivator->start(pluginContext.data());
+
+        if (state != uuPlugin::STARTING)
+        {
+            if (uuPlugin::UNINSTALLED == state)
+            {
+                error = "ctkPlugin uninstalled during start()";
+                throw std::exception();
+            }
+            else
+            {
+                error = "ctkPlugin changed state because of refresh during start()";
+                throw std::exception();
+            }
+        }
+        state = uuPlugin::ACTIVE;
+    }
+    catch (...)
+    {
+        
+    }
+
+    if (error.isEmpty())
+    {
+        // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::STARTED, this->q_func()));
+    }
+    else if (operation.fetchAndAddOrdered(0) == ACTIVATING)
+    {
+        state = uuPlugin::STOPPING;
+        // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::STOPPING, this->q_func()));
 
     }
+
+    std::cout << error.toStdString();
 }
 
 void uuPluginPrivate::stop0()
 {
+    bool wasStarted = state == uuPlugin::ACTIVE;
+    state = uuPlugin::STOPPING;
+    operation.fetchAndStoreOrdered(DEACTIVATING);
 
+    // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::STOPPING, q_func()));
+
+    if (wasStarted && pluginActivator)
+    {
+        pluginActivator->stop(pluginContext.data());
+        if (state != uuPlugin::STOPPING)
+        {
+            return;
+        }
+        pluginActivator = NULL;
+    }
+     if (operation.fetchAndAddOrdered(0) == DEACTIVATING)
+     {
+         if (pluginContext)
+         {
+            removePluginResources();
+            pluginContext->d_func()->invalidate();
+            pluginContext.reset();
+         }
+     }
+     if (state != uuPlugin::UNINSTALLED)
+     {
+        state = uuPlugin::RESOLVED;
+        // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::STOPPED, this->q_func()));
+
+        operationLock.wakeAll();
+        operation.fetchAndStoreOrdered(IDLE);
+     }
 }
 
 void uuPluginPrivate::waitOnOperation(LockObject* lock, const QString& src, bool longWait)
 {
+    src;
     if (operation.fetchAndAddOrdered(0) != IDLE)
     {
         quint64 left = longWait ? 20000 : 500;
@@ -148,4 +238,14 @@ void uuPluginPrivate::waitOnOperation(LockObject* lock, const QString& src, bool
             left = msecsTo(QDateTime::currentDateTime(), waitUntil);
         } while (left > 0);
     }
+}
+
+void uuPluginPrivate::startDependencies()
+{
+
+}
+
+void uuPluginPrivate::removePluginResources()
+{
+
 }

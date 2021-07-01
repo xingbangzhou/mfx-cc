@@ -4,7 +4,9 @@ TARGET = pclient
 ROOT = ../..
 include($$ROOT/include/common.pri)
 
-CONFIG += qt
+LIBS += pluginframework.lib
+
+CONFIG += qt console
 
 QT += widgets
 

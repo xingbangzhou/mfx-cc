@@ -1,11 +1,11 @@
-#ifndef UUPLUGINFRAMEWORKFACTORY_H
+﻿#ifndef UUPLUGINFRAMEWORKFACTORY_H
 #define UUPLUGINFRAMEWORKFACTORY_H
 
 #include <QSharedPointer>
 
-#include "pluginframework/uupluginfwexport.h"
+#include "uupluginfwexport.h"
+#include "uupluginframework.h"
 
-class uuPluginFramework;
 class uuPluginFrameworkContext;
 
 class UUPLUGINFW_EXPORT uuPluginFrameworkFactory

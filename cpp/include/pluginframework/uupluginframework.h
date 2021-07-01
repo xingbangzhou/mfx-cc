@@ -13,12 +13,12 @@ class UUPLUGINFW_EXPORT uuPluginFramework : public uuPlugin
 {
 public:
 
-    void init();
+    bool init();
 
     void start();
 
     void stop();
-
+    // this method is empty
     void uninstall();
 
 protected:

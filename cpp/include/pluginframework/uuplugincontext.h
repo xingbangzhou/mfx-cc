@@ -8,8 +8,8 @@
 
 class uuPlugin;
 class uuPluginPrivate;
-class uuPluginContextPrivate;
 class uuPluginFrameworkPrivate;
+class uuPluginContextPrivate;
 
 class UUPLUGINFW_EXPORT uuPluginContext
 {
@@ -20,7 +20,7 @@ public:
 
     QList<QSharedPointer<uuPlugin> > getPlugins() const;
 
-    QSharedPointer<uuPlugin> installPlugin(const QUrl& location, QIODevice* input = NULL);
+    QSharedPointer<uuPlugin> installPlugin(const QUrl& location);
 
 protected:
     friend class uuPlugin;
@@ -29,10 +29,10 @@ protected:
 
     explicit uuPluginContext(uuPluginPrivate* plugin);
 
-    uuPluginContextPrivate * const d_ptr;
+    uuPluginContextPrivate* const d_ptr;
 
 private:
-    Q_DECLARE_PRIVATE(uuPluginContext)
+   Q_DECLARE_PRIVATE(uuPluginContext);
 };
 
 #endif // UUPLUGINCONTEXT_H

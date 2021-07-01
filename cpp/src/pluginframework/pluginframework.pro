@@ -3,8 +3,13 @@ TEMPLATE = lib
 ROOT = ../..
 include($$ROOT/include/common.pri)
 
+QMAKE_CFLAGS += -wd4100
+QMAKE_CXXFLAGS += -wd4100
+
 DEPENDPATH += $$ROOT/include/pluginframework
 VPATH += $$ROOT/include/pluginframework
+
+QT -= gui
 
 CONFIG += qt
 
@@ -14,18 +19,18 @@ PRECOMPILED_HEADER = stable.h
 HEADERS += \
         stable.h \
         uuplugin_p.h \
-        uuplugincontext_p.h \
         uupluginframework_p.h \
+        uupluginframeworkcontext.h \
         uupluginfwexport.h \
-        uupluginframeworkcontext_p.h \
         uuplugin_global.h \
         uuplugin_constants.h \
         uuplugin.h \
         uupluginactivator.h \
         uuplugincontext.h \
+        uuplugincontext_p.h \
         uupluginframework.h \
         uupluginframeworkfactory.h \
-        uuplugins_p.h
+        uuplugins.h
 
 SOURCES += \
         uuplugin.cpp \
@@ -33,7 +38,7 @@ SOURCES += \
         uuplugincontext.cpp \
         uupluginframework.cpp \
         uupluginframework_p.cpp \
-        uupluginframeworkcontext_p.cpp \
+        uupluginframeworkcontext.cpp \
         uupluginframeworkfactory.cpp \
-        uuplugins_p.cpp \
-        uuplugin_constants.cpp
+        uuplugin_constants.cpp \
+        uuplugins.cpp

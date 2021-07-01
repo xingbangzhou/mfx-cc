@@ -1,13 +1,18 @@
-#include "stable.h"
+﻿#include "stable.h"
 #include "pluginframework/uuplugin.h"
 #include "uuplugin_p.h"
 #include "pluginframework/uuplugincontext.h"
-#include "uupluginframeworkcontext_p.h"
+#include "uupluginframeworkcontext.h"
 
 uuPlugin::uuPlugin()
     :d_ptr(NULL)
 {
 
+}
+
+uuPlugin::~uuPlugin()
+{
+    delete d_ptr;
 }
 
 void uuPlugin::init(uuPluginPrivate* dd)
@@ -44,18 +49,7 @@ void uuPlugin::start()
     //Resolve plugin (if needed)
     d->getUpdatedState();
 
-    if (!d->eagerActivation)
-    {
-        if (STARTING == d->state) return;
-        d->state = STARTING;
-        d->pluginContext.reset(new uuPluginContext(this->d_func()));
-        // ctkPluginEvent pluginEvent(ctkPluginEvent::LAZY_ACTIVATION, d->q_ptr);
-        // d->fwCtx->listeners.emitPluginChanged(pluginEvent);
-    }
-    else
-    {
-        d->finalizeActivation();
-    }
+    d->finalizeActivation();
 }
 
 void uuPlugin::stop()

@@ -8,7 +8,7 @@ uuPluginFramework::uuPluginFramework()
     qRegisterMetaType<QSharedPointer<uuPlugin> >("QSharedPointer<uuPlugin>");
 }
 
-void uuPluginFramework::init()
+bool uuPluginFramework::init()
 {
     Q_D(uuPluginFramework);
 
@@ -21,27 +21,33 @@ void uuPluginFramework::init()
         break;
     case uuPlugin::STARTING:
     case uuPlugin::ACTIVE:
-        return;
+        return false;
     }
     d->init();
+    return true;
 }
 
 void uuPluginFramework::start()
 {
     Q_D(uuPluginFramework);
 
-    uuPluginPrivate::Locker sync(&d->lock);
-    d->waitOnOperation(&d->lock, "uuPluginFramework::start", true);
-
-    switch (d->state)
     {
-    case INSTALLED:
-    case RESOLVED:
-        d->init();
-    case STARTING:
-        d->operation.fetchAndStoreOrdered(uuPluginPrivate::ACTIVATING);
-    case ACTIVE:
-        return;
+        uuPluginPrivate::Locker sync(&d->lock);
+        d->waitOnOperation(&d->lock, "uuPluginFramework::start", true);
+
+        switch (d->state)
+        {
+        case INSTALLED:
+        case RESOLVED:
+            d->init();
+        case STARTING:
+            d->operation.fetchAndStoreOrdered(uuPluginPrivate::ACTIVATING);
+            break;
+        case ACTIVE:
+            return;
+        default:
+            return;
+        }
     }
 
     d->activate(d->pluginContext.data());
@@ -60,4 +66,9 @@ void uuPluginFramework::stop()
 {
     Q_D(uuPluginFramework);
     d->shutdown();
+}
+
+void uuPluginFramework::uninstall()
+{
+
 }
