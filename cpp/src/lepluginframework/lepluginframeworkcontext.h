@@ -3,14 +3,20 @@
 
 #include "lepluginframework/lepluginframework.h"
 #include "leplugins.h"
+#include "lepluginframeworklisteners.h"
 
 class LePluginPrivate;
+class LeServices;
 
 class LePluginFrameworkContext
 {
 public:
 
     LePlugins* plugins;
+
+    LePluginFrameworkListeners listeners;
+
+    LeServices* services;
 
     QSharedPointer<LePluginFramework> systemPlugin;
 
@@ -24,7 +30,7 @@ public:
     void resolvePlugin(LePluginPrivate* plugin);
 
 private:
-    bool initialized;
+    bool m_initialized;
 };
 
 #endif // LEPLUGINFRAMEWORKCONTEXT_H

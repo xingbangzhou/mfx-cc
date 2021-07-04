@@ -22,6 +22,8 @@ public:
 
     QSharedPointer<LePlugin> installPlugin(const QUrl& location);
 
+
+
 protected:
     friend class LePlugin;
     friend class LePluginPrivate;

@@ -15,12 +15,19 @@ DEFINES += LEPLUGINFW_IMPL
 
 PRECOMPILED_HEADER = stable.h
 HEADERS += \
+        lepluginframeworklisteners.h \
+        leserviceevent.h \
+        leservicereference_p.h \
+        leserviceregistration.h \
+        leserviceregistration_p.h \
+        leservices.h \
+        leserviceslotentry.h \
         stable.h \
         leplugin_p.h \
         lepluginframework_p.h \
         lepluginframeworkcontext.h \
         lepluginfwexport.h \
-        leplugin_global.h \
+        lepluginfw_global.h \
         leplugin_constants.h \
         leplugin.h \
         lepluginactivator.h \
@@ -28,7 +35,8 @@ HEADERS += \
         leplugincontext_p.h \
         lepluginframework.h \
         lepluginframeworkfactory.h \
-        leplugins.h
+        leplugins.h \
+        leservicereference.h
 
 SOURCES += \
         leplugin.cpp \
@@ -39,4 +47,12 @@ SOURCES += \
         lepluginframeworkcontext.cpp \
         lepluginframeworkfactory.cpp \
         leplugin_constants.cpp \
-        leplugins.cpp
+        lepluginframeworklisteners.cpp \
+        leplugins.cpp \
+        leserviceevent.cpp \
+        leservicereference_p.cpp \
+        leserviceregistration.cpp \
+        leserviceregistration_p.cpp \
+        leservices.cpp \
+        leserviceslotentry.cpp \
+        leservicereference.cpp
