@@ -21,7 +21,7 @@ LeServiceReferencePrivate::~LeServiceReferencePrivate()
 
 QObject* LeServiceReferencePrivate::getService(QSharedPointer<LePlugin> plugin)
 {
-    QObject* s = NULL;
+    QObject* s = nullptr;
     {
         QMutexLocker lock(&registration->propsLock);
         if (registration->available)
@@ -45,13 +45,13 @@ QObject* LeServiceReferencePrivate::getService(QSharedPointer<LePlugin> plugin)
 bool LeServiceReferencePrivate::ungetService(QSharedPointer<LePlugin> plugin, bool checkRefCounter)
 {
     QMutexLocker lock(&registration->propsLock);
-    bool hadReferences = false;
+    bool hasReferences = false;
     bool removeService = false;
 
     int count= registration->dependents.value(plugin);
     if (count > 0)
     {
-        hadReferences = true;
+        hasReferences = true;
     }
 
     if (checkRefCounter)
@@ -72,11 +72,8 @@ bool LeServiceReferencePrivate::ungetService(QSharedPointer<LePlugin> plugin, bo
 
     if (removeService)
     {
-        QObject* sfi = registration->serviceInstances[plugin];
-        registration->serviceInstances.remove(plugin);
-        if (sfi != NULL)
-        {
-
-        }
+        registration->dependents.remove(plugin);
     }
+
+    return hasReferences;
 }

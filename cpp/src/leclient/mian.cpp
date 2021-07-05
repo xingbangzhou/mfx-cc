@@ -1,28 +1,18 @@
 ﻿#include "stable.h"
+#include "lemainframe.h"
 
 #include <QApplication>
-#include <iostream>
-
-#include "pluginframework/uupluginframeworkfactory.h"
-#include "pluginframework/uuplugincontext.h"
+#include <QTimer>
 
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    uuPluginFrameworkFactory fwFactory;
-    QSharedPointer<uuPluginFramework> framework = fwFactory.getFramework();
+    LeMainFrame mainframe;
 
-    framework->init();
-    
-    qApp->addLibraryPath(qApp->applicationDirPath() + "/");
+    mainframe.startFramework();
 
-    std::cout << qApp->applicationDirPath().toStdString() + "/pluginkafka.dll" << std::endl;
-    QSharedPointer<uuPlugin> plugin = framework->getPluginContext()->installPlugin(QUrl::fromLocalFile(qApp->applicationDirPath() + "/pluginkafka.dll"));
-    
-    framework->start();
-
-    plugin->start();
+    mainframe.testService();
 
     return app.exec();
 }

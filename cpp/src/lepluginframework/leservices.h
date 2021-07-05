@@ -17,9 +17,7 @@ public:
 
     LePluginFrameworkContext* fwCtx;
 
-    QHash<LeServiceRegistration, QString> regClass;
-
-    QHash<QString, LeServiceRegistration> classReg;
+    QHash<QString, LeServiceRegistration> classServices;
 
     explicit LeServices(LePluginFrameworkContext* fwCtx);
     ~LeServices();
@@ -27,10 +25,17 @@ public:
     void clear();
 
     LeServiceRegistration registerService(LePluginPrivate* plugin,
-                                           const QString& className,
+                                           const QString& clazz,
                                            QObject* service);
 
     void removeServiceRegistration(const LeServiceRegistration& reg);
+
+    LeServiceRegistration get(const QString& clazz) const;
+
+    QList<LeServiceRegistration> getRegisteredByPlugin(LePluginPrivate* p) const;
+
+    QList<LeServiceRegistration> getUsedByPlugin(QSharedPointer<LePlugin> p) const;
+
 };
 
 #endif // LESERVICES_H

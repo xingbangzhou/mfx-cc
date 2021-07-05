@@ -1,6 +1,7 @@
 #ifndef LESERVICESLOTENTRY_H
 #define LESERVICESLOTENTRY_H
 
+#include <QString>
 #include <QExplicitlySharedDataPointer>
 
 #include "lepluginframework/leserviceevent.h"

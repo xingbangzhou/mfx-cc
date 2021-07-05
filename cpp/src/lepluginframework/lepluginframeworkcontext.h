@@ -29,8 +29,11 @@ public:
 
     void resolvePlugin(LePluginPrivate* plugin);
 
+	LeLogger& logger();
+
 private:
     bool m_initialized;
+	LeLogger m_logger;
 };
 
 #endif // LEPLUGINFRAMEWORKCONTEXT_H

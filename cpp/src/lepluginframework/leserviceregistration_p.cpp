@@ -2,9 +2,10 @@
 #include "leserviceregistration_p.h"
 
 LeServiceRegistrationPrivate::LeServiceRegistrationPrivate(
-        LePluginPrivate* plugin, QObject* service)
-    : ref(1), plugin(plugin), service(service), reference(this),
-      available(true), unregistering(false)
+        LePluginPrivate* plugin, QObject* service, const QString& clazz)
+    : ref(1), available(true), unregistering(false),
+      plugin(plugin), clazz(clazz), service(service),
+      reference(this)
 {
 
 }

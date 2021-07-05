@@ -1,24 +1,24 @@
-﻿#ifndef PLUGINKAFKAACTIVATOR_H
-#define PLUGINKAFKAACTIVATOR_H
+﻿#ifndef PLUGINBACTIVATOR_H
+#define PLUGINBACTIVATOR_H
 
 #include <QObject>
 
 #include "lepluginframework/lepluginactivator.h"
 
-class PluginKafkaActivator : public QObject,
+class PluginBActivator : public QObject,
     public LePluginActivator
 {
     Q_OBJECT
-    Q_INTERFACES(uuPluginActivator)
+    Q_INTERFACES(LePluginActivator)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    Q_PLUGIN_METADATA(IID "plugin_kafka")
+    Q_PLUGIN_METADATA(IID "pluginb_test")
 #endif
 public:
-    PluginKafkaActivator();
+	PluginBActivator();
     
     void start(LePluginContext* context);
     void stop(LePluginContext* context);
     
 };
 
-#endif // PLUGINKAFKAACTIVATOR_H
+#endif // PLUGINBACTIVATOR_H

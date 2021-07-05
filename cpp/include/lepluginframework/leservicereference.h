@@ -8,6 +8,8 @@
 
 class LeServiceRegistrationPrivate;
 class LeServiceReferencePrivate;
+class LePluginPrivate;
+class LePluginContext;
 
 class LEPLUGINFW_EXPORT LeServiceReference
 {
@@ -27,14 +29,14 @@ public:
 
     QList<QSharedPointer<LePlugin> > getUsingPlugins() const;
 
-    bool operator<(const LeServiceReference& reference) const;
-
     bool operator==(const LeServiceReference& reference) const;
 
     LeServiceReference& operator=(const LeServiceReference& reference);
 
 protected:
     friend class LeServiceRegistrationPrivate;
+    friend class LePluginPrivate;
+    friend class LePluginContext;
 
     friend uint LEPLUGINFW_EXPORT qHash(const LeServiceReference&);
 

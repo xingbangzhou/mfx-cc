@@ -33,11 +33,10 @@ void LePluginFrameworkListeners::removeServiceSlot(QSharedPointer<LePlugin> plug
 
 QSet<LeServiceSlotEntry> LePluginFrameworkListeners::getMatchingServiceSlots(const LeServiceReference &sr)
 {
+	sr;
     QMutexLocker lock(&m_mutex);
 
-    QSet<LeServiceSlotEntry> slotSet;
-    slotSet.reserve(m_serviceSet.size());
-
+    return m_serviceSet;
 }
 
 void LePluginFrameworkListeners::removeServiceSlot_unlocked(QSharedPointer<LePlugin> plugin,
@@ -72,4 +71,9 @@ void LePluginFrameworkListeners::serviceChanged(
     {
         sse.invokeSlot(evt);
     }
+}
+
+void LePluginFrameworkListeners::serviceListenerDestroyed(QObject* listener)
+{
+	this->removeServiceSlot(QSharedPointer<LePlugin>(nullptr), listener, 0);
 }

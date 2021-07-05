@@ -1,6 +1,8 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    plugin_kafka
+    plugina_test \
+    pluginb_test
 
-plugin_kafka.depends = lepluginframework
+plugina_test.depends = lepluginframework
+pluginb_test.depends = lepluginframework

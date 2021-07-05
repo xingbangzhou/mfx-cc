@@ -10,6 +10,8 @@ public:
 
     LePluginContextPrivate(LePluginPrivate* plugin);
 
+    bool isPluginContextValid() const;
+
     void invalidate();
 };
 

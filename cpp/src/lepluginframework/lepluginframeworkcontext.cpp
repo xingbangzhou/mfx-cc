@@ -4,9 +4,9 @@
 #include "leservices.h"
 
 LePluginFrameworkContext::LePluginFrameworkContext()
-    : plugins(NULL), listeners(this), services(NULL),
+    : plugins(nullptr), listeners(this), services(nullptr),
       systemPlugin(new LePluginFramework()),
-      m_initialized(false)
+      m_initialized(false), m_logger("LePluginFramework")
 {
     systemPlugin->LePlugin::init(new LePluginFrameworkPrivate(systemPlugin, this));
 }
@@ -39,15 +39,20 @@ void LePluginFrameworkContext::uninit()
 
     plugins->clear();
     delete plugins;
-    plugins = NULL;
+    plugins = nullptr;
 
     delete services;
-    services = NULL;
+    services = nullptr;
 
     m_initialized = false;
 }
 
 void LePluginFrameworkContext::resolvePlugin(LePluginPrivate* plugin)
 {
+	plugin;
+}
 
+LeLogger& LePluginFrameworkContext::logger()
+{
+	return m_logger;
 }

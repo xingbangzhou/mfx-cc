@@ -6,7 +6,7 @@
 #include "leservices.h"
 
 LeServiceRegistration::LeServiceRegistration()
-    : d_ptr(NULL)
+    : d_ptr(nullptr)
 {
 
 }
@@ -29,8 +29,8 @@ LeServiceRegistration::LeServiceRegistration(LeServiceRegistrationPrivate* regis
     }
 }
 
-LeServiceRegistration::LeServiceRegistration(LePluginPrivate* plugin, QObject* service)
-  : d_ptr(new LeServiceRegistrationPrivate(plugin, service))
+LeServiceRegistration::LeServiceRegistration(LePluginPrivate* plugin, QObject* service, const QString& clazz)
+  : d_ptr(new LeServiceRegistrationPrivate(plugin, service, clazz))
 {
 
 }
@@ -48,7 +48,7 @@ LeServiceRegistration& LeServiceRegistration::operator=(int null)
         {
             delete d_ptr;
         }
-        d_ptr = 0;
+        d_ptr = nullptr;
     }
     return *this;
 }
@@ -66,6 +66,13 @@ LeServiceReference LeServiceRegistration::getReference() const
   Q_D(const LeServiceRegistration);
 
   return d->reference;
+}
+
+QString LeServiceRegistration::getClazz() const
+{
+    Q_D(const LeServiceRegistration);
+
+    return d->clazz;
 }
 
 void LeServiceRegistration::unregister()
@@ -101,8 +108,35 @@ void LeServiceRegistration::unregister()
         d->plugin = 0;
         d->dependents.clear();
         d->service = 0;
-        d->serviceInstances.clear();
         d->reference = 0;
         d->unregistering = false;
     }
+}
+
+bool LeServiceRegistration::operator==(const LeServiceRegistration &reg) const
+{
+    Q_D(const LeServiceRegistration);
+    return d == reg.d_func();
+}
+
+LeServiceRegistration& LeServiceRegistration::operator=(const LeServiceRegistration &reg)
+{
+    LeServiceRegistrationPrivate* curr_d = d_func();
+    d_ptr = reg.d_ptr;
+    if (d_ptr)
+    {
+        d_ptr->ref.ref();
+    }
+
+    if (curr_d && !curr_d->ref.deref())
+    {
+        delete curr_d;
+    }
+
+    return *this;
+}
+
+uint qHash(const LeServiceRegistration& reg)
+{
+    return qHash(reg.d_func());
 }

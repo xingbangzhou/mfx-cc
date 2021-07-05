@@ -25,9 +25,9 @@ public:
 
     LeServiceReference getReference() const;
 
-    void unregister();
+    QString getClazz() const;
 
-    bool operator<(const LeServiceRegistration& o);
+    void unregister();
 
     bool operator==(const LeServiceRegistration& reg) const;
 
@@ -42,7 +42,7 @@ protected:
 
     LeServiceRegistration(LeServiceRegistrationPrivate* registrationPrivate);
 
-    LeServiceRegistration(LePluginPrivate* plugin, QObject* service, const QString& className);
+    LeServiceRegistration(LePluginPrivate* plugin, QObject* service, const QString& clazz);
 
     LeServiceRegistrationPrivate* d_ptr;
 

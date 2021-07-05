@@ -1,8 +1,7 @@
 ﻿#include "stable.h"
 #include "leplugins.h"
 #include "lepluginframeworkcontext.h"
-
-#include <iostream>
+#include "leplugin_p.h"
 
 LePlugins::LePlugins(LePluginFrameworkContext* fw)
 {
@@ -14,7 +13,7 @@ void LePlugins::clear()
 {
     QWriteLocker lock(&pluginsLock);
     plugins.clear();
-    fwCtx = NULL;
+    fwCtx = nullptr;
 }
 
 QSharedPointer<LePlugin> LePlugins::install(const QUrl &location)
@@ -29,22 +28,22 @@ QSharedPointer<LePlugin> LePlugins::install(const QUrl &location)
     }
 
     QString localPluginPath;
-    if (location.scheme() != "file")
+	if (location.scheme() != "file")
     {
-        // throw ctkRuntimeException(QString("Unsupported url scheme: ") + location.scheme());
-        return NULL;
+		fwCtx->logger().error(location.fileName() + ": scheme is no FILE");
+        return nullptr;
     }
     else
     {
         localPluginPath = location.toLocalFile();
-        std::cout << localPluginPath.toStdString() << std::endl;
     }
 
     res = QSharedPointer<LePlugin>(new LePlugin());
     res->init(res, fwCtx, localPluginPath);
     plugins.insert(location.toString(), res);
+	
+	fwCtx->logger().info(location.fileName() + ": install");
 
-    // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::INSTALLED, res));
     return res;
 }
 
@@ -59,7 +58,7 @@ QSharedPointer<LePlugin> LePlugins::getPlugin(const QString &location) const
     QReadLocker lock(&pluginsLock);
     QHash<QString, QSharedPointer<LePlugin> >::const_iterator it = plugins.find(location);
     if (it == plugins.end()) return it.value();
-    return QSharedPointer<LePlugin>(NULL);
+    return QSharedPointer<LePlugin>(nullptr);
 }
 
 QList<QSharedPointer<LePlugin> > LePlugins::getPlugins() const
@@ -84,4 +83,26 @@ QList<QSharedPointer<LePlugin> > LePlugins::getActivePlugins() const
         }
     }
     return slist;
+}
+
+void LePlugins::startPlugins(const QList<LePlugin*>& slist) const
+{
+	QListIterator<LePlugin*> it(slist);
+	while (it.hasNext())
+	{
+		LePlugin* plugin = it.next();
+		LePluginPrivate* pp = plugin->d_func();
+		pp->getUpdatedState();
+	}
+
+	it.toFront();
+	while (it.hasNext())
+	{
+		LePlugin* plugin = it.next();
+		LePluginPrivate* pp = plugin->d_func();
+		if (pp->getUpdatedState() == LePlugin::RESOLVED)
+		{
+			plugin->start();
+		}
+	}
 }

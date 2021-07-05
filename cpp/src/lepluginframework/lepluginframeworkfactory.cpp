@@ -4,7 +4,7 @@
 #include "lepluginframeworkcontext.h"
 
 LePluginFrameworkFactory::LePluginFrameworkFactory()
-    : fwCtx(NULL)
+    : fwCtx(nullptr)
 {
     fwCtx = new LePluginFrameworkContext();
 }

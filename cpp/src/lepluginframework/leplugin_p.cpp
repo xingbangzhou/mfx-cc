@@ -3,6 +3,9 @@
 #include "lepluginframework/lepluginactivator.h"
 #include "leplugincontext_p.h"
 #include "lepluginframeworkcontext.h"
+#include "lepluginframework/leserviceregistration.h"
+#include "leservices.h"
+#include "leservicereference_p.h"
 
 #include <QDateTime>
 #include <iostream>
@@ -59,7 +62,7 @@ LePluginPrivate::LePluginPrivate(QWeakPointer<LePlugin> qq,
                                  LePluginFrameworkContext* fw,
                                  const QString& loc)
     : q_ptr(qq), fwCtx(fw), location(loc),
-      state(LePlugin::INSTALLED), pluginContext(NULL), pluginActivator(NULL), pluginLoader(loc)
+      state(LePlugin::INSTALLED), pluginContext(nullptr), pluginActivator(nullptr), pluginLoader(loc)
     , logger("LePlugin")
 {
 
@@ -73,7 +76,7 @@ LePluginPrivate::~LePluginPrivate()
 
 LePlugin::State LePluginPrivate::getUpdatedState()
 {
-    if (state & LePlugin::INSTALLED)
+    if (state == LePlugin::INSTALLED)
     {
         Locker sync(&operationLock);
         getUpdatedState_unlocked();
@@ -83,17 +86,16 @@ LePlugin::State LePluginPrivate::getUpdatedState()
 
 LePlugin::State LePluginPrivate::getUpdatedState_unlocked()
 {
-    if (state & LePlugin::INSTALLED)
-    {
-        if (state == LePlugin::INSTALLED)
-        {
-            operation.fetchAndStoreOrdered(RESOLVING);
-            fwCtx->resolvePlugin(this);
-            state = LePlugin::RESOLVED;
-            // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::RESOLVED, this->q_func()));
-            operation.fetchAndStoreOrdered(IDLE);
-        }
-    }
+	if (state == LePlugin::INSTALLED)
+	{
+		operation.fetchAndStoreOrdered(RESOLVING);
+		fwCtx->resolvePlugin(this);
+		state = LePlugin::RESOLVED;
+		
+		fwCtx->logger().info("update state: RESOLVED");
+
+		operation.fetchAndStoreOrdered(IDLE);
+	}
     return state;
 }
 
@@ -128,56 +130,32 @@ void LePluginPrivate::start0()
 {
     QString error = QString::null;
 
-    // fwCtx->listeners.emitPluginChanged(LePluginEvent(LePluginEvent::STARTING, this->q_func()));
+	if (!pluginLoader.load())
+	{
+		error = QString("Loading plugin %1 failed: %2").arg(pluginLoader.fileName()).arg(pluginLoader.errorString());
+	}
+	else 
+	{
+		pluginActivator = qobject_cast<LePluginActivator*>(pluginLoader.instance());
+		if (!pluginActivator)
+		{
+			error = QString("PluginActivator is NULL");
+		}
+		else
+		{
+			pluginActivator->start(pluginContext.data());			
+			state = LePlugin::ACTIVE;
+		}
+	}
 
-    try
-    {
-        if (!pluginLoader.load())
-        {
-            error = QString("Loading plugin %1 failed: %2").arg(pluginLoader.fileName()).arg(pluginLoader.errorString());
-            throw std::exception();
-        }
-
-        pluginActivator = qobject_cast<LePluginActivator*>(pluginLoader.instance());
-        if(!pluginActivator)
-        {
-            throw std::exception();
-        }
-
-        pluginActivator->start(pluginContext.data());
-
-        if (state != LePlugin::STARTING)
-        {
-            if (LePlugin::UNINSTALLED == state)
-            {
-                error = "ctkPlugin uninstalled during start()";
-                throw std::exception();
-            }
-            else
-            {
-                error = "ctkPlugin changed state because of refresh during start()";
-                throw std::exception();
-            }
-        }
-        state = LePlugin::ACTIVE;
-    }
-    catch (...)
-    {
-        
-    }
-
-    if (error.isEmpty())
-    {
-        // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::STARTED, this->q_func()));
-    }
-    else if (operation.fetchAndAddOrdered(0) == ACTIVATING)
-    {
-        state = LePlugin::STOPPING;
-        // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::STOPPING, this->q_func()));
-
-    }
-
-    std::cout << error.toStdString();
+	if (error.isEmpty())
+	{
+		fwCtx->logger().info("Plugin start0: Success");
+	}
+	else 
+	{
+		fwCtx->logger().error(error);
+	}
 }
 
 void LePluginPrivate::stop0()
@@ -195,7 +173,7 @@ void LePluginPrivate::stop0()
         {
             return;
         }
-        pluginActivator = NULL;
+        pluginActivator = nullptr;
     }
      if (operation.fetchAndAddOrdered(0) == DEACTIVATING)
      {
@@ -242,5 +220,17 @@ void LePluginPrivate::startDependencies()
 
 void LePluginPrivate::removePluginResources()
 {
+    QList<LeServiceRegistration> srs = fwCtx->services->getRegisteredByPlugin(this);
+    QMutableListIterator<LeServiceRegistration> i(srs);
+    while (i.hasNext())
+    {
+        i.next().unregister();
+    }
 
+    QList<LeServiceRegistration> s = fwCtx->services->getUsedByPlugin(q_func());
+    QListIterator<LeServiceRegistration> i2(s);
+    while (i2.hasNext())
+    {
+        i2.next().getReference().d_func()->ungetService(q_func(), false);
+    }
 }

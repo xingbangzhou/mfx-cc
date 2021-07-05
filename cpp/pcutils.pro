@@ -9,6 +9,7 @@ SUBDIRS = \
 	src/leplugins \
 	src/leclient
 
+lepluginframework.depends = lecore
 leclient.depends = lepluginframework
 
 DESTDIR = ../shadow

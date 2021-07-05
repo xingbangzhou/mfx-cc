@@ -8,12 +8,14 @@ QT -= gui
 
 CONFIG += qt
 
-LIBS += pluginframework.lib
+LIBS += lepluginframework.lib
 
 PRECOMPILED_HEADER = stable.h
 HEADERS += \
-    stable.h \
-    pluginkafkaactivator.h
+    pluginbactivator.h \
+    pluginbservice.h \
+    stable.h
 
 SOURCES += \
-    pluginkafkaactivator.cpp
+    pluginbactivator.cpp \
+    pluginbservice.cpp

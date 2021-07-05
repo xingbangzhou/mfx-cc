@@ -11,6 +11,8 @@ QMAKE_CXXFLAGS += -wd4100
 QT -= gui
 CONFIG += qt
 
+LIBS += lecore.lib
+
 DEFINES += LEPLUGINFW_IMPL
 
 PRECOMPILED_HEADER = stable.h

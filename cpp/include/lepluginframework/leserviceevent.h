@@ -3,11 +3,12 @@
 
 #include <QSharedDataPointer>
 
+#include "lepluginframework/lepluginfwexport.h"
 #include "leservicereference.h"
 
 class LeServiceEventData;
 
-class LeServiceEvent
+class LEPLUGINFW_EXPORT LeServiceEvent
 {
 public:
 

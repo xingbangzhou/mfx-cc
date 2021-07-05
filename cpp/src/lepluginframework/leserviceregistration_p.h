@@ -18,9 +18,9 @@ public:
 
     LeServiceReference reference;
 
-    QHash<QSharedPointer<LePlugin>,int> dependents;
+    const QString clazz;
 
-    QHash<QSharedPointer<LePlugin>, QObject*> serviceInstances;
+    QHash<QSharedPointer<LePlugin>,int> dependents;
 
     volatile bool available;
 
@@ -30,7 +30,7 @@ public:
 
     QMutex propsLock;
 
-    LeServiceRegistrationPrivate(LePluginPrivate* plugin, QObject* service);
+    LeServiceRegistrationPrivate(LePluginPrivate* plugin, QObject* service, const QString& clazz);
 
     ~LeServiceRegistrationPrivate();
 

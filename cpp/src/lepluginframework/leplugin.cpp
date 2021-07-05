@@ -4,7 +4,7 @@
 #include "lepluginframework/leplugincontext.h"
 #include "lepluginframeworkcontext.h"
 
-LePlugin::LePlugin() : d_ptr(NULL), logger("LePlugin")
+LePlugin::LePlugin() : d_ptr(nullptr)
 {
 
 }
@@ -39,13 +39,13 @@ void LePlugin::start()
 
     if (d->state == UNINSTALLED)
     {
-        logger.error(d->location + " is uninstalled");
+		d->fwCtx->logger().error(d->location + "[start]: UNINSTALLED");
         return;
     }
 
     if (d->state == ACTIVE)
     {
-        logger.info(d->location + " is active");
+		d->fwCtx->logger().warn(d->location + "[start]: ALREADY ACTIVE");
         return;
     }
     // resolve plugin
@@ -60,7 +60,7 @@ void LePlugin::stop()
 
     if (d->state == UNINSTALLED)
     {
-        return; //throw ctkIllegalStateException("ctkPlugin is uninstalled");
+        return;
     }
 
     d->waitOnOperation(&d->operationLock, "Plugin::stop", false);
@@ -108,15 +108,13 @@ void LePlugin::uninstall()
             d->operation.fetchAndStoreOrdered(LePluginPrivate::UNINSTALLING);
         }
 
-        // d->fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::UNRESOLVED, d->q_func()));
         d->pluginActivator = 0;
         d->state = UNINSTALLED;
         d->operation.fetchAndStoreOrdered(LePluginPrivate::IDLE);
         d->operationLock.wakeAll();
         break;
     }
-    }
-    // d->fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::UNINSTALLED, d->q_ptr));
+	}
 }
 
 LePluginContext* LePlugin::getPluginContext() const

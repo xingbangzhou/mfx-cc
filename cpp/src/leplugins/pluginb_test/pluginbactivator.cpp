@@ -1,25 +1,25 @@
 ﻿#include "stable.h"
-#include "pluginkafkaactivator.h"
+#include "pluginbactivator.h"
 
 #include <QDebug>
 #include <QtPlugin>
 
-PluginKafkaActivator::PluginKafkaActivator()
+PluginBActivator::PluginBActivator()
 {
 }
 
-void PluginKafkaActivator::start(LePluginContext* context)
+void PluginBActivator::start(LePluginContext* context)
 {
     context;
     qDebug() << "PluginFramework->PluginKafka[Start]";
 }
 
-void PluginKafkaActivator::stop(LePluginContext* context)
+void PluginBActivator::stop(LePluginContext* context)
 {
     context;
     qDebug() << "PluginFramework->PluginKafka[Stop]";
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(plugin_kafka, PluginKafka)
+Q_EXPORT_PLUGIN2(pluginb_test, PluginBActivator)
 #endif

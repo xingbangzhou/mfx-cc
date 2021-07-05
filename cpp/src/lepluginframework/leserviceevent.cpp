@@ -17,7 +17,7 @@ public:
 
 //----------------------------------------------------------------------------
 LeServiceEvent::LeServiceEvent()
-    : d(NULL)
+    : d(nullptr)
 {
 
 }
