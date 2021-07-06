@@ -6,7 +6,6 @@
 #include <QSharedPointer>
 #include <QReadWriteLock>
 #include <QMutex>
-#include <QIODevice>
 
 #include "lepluginframework/leplugin.h"
 

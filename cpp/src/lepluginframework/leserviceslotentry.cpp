@@ -67,7 +67,7 @@ void LeServiceSlotEntry::invokeSlot(const LeServiceEvent &event)
                                    Qt::DirectConnection,
                                    Q_ARG(LeServiceEvent, event)))
     {
-
+		
     }
 }
 

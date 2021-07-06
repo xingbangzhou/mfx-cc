@@ -8,7 +8,6 @@
 #include "leservicereference_p.h"
 
 #include <QDateTime>
-#include <iostream>
 
 qint64 msecsTo(const QDateTime& t1, const QDateTime& t2)
 {
@@ -24,22 +23,22 @@ const LePlugin::States LePluginPrivate::RESOLVED_FLAGS = LePlugin::RESOLVED | Le
 //----------------------------------------------------------------------------
 void LePluginPrivate::LockObject::lock()
 {
-  m_lock.lock();
+	m_lock.lock();
 }
 
 bool LePluginPrivate::LockObject::tryLock()
 {
-  return m_lock.tryLock();
+	return m_lock.tryLock();
 }
 
 bool LePluginPrivate::LockObject::tryLock(int timeout)
 {
-  return m_lock.tryLock(timeout);
+	return m_lock.tryLock(timeout);
 }
 
 void LePluginPrivate::LockObject::unlock()
 {
-  m_lock.unlock();
+	m_lock.unlock();
 }
 
 bool LePluginPrivate::LockObject::wait(unsigned long time)
