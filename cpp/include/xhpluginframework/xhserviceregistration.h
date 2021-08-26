@@ -1,4 +1,4 @@
-#ifndef XHSERVICEREGISTRATION_H
+﻿#ifndef XHSERVICEREGISTRATION_H
 #define XHSERVICEREGISTRATION_H
 
 #include "xhpluginfwexport.h"
@@ -38,7 +38,7 @@ protected:
     friend class XhServices;
     friend class XhServiceRegistrationPrivate;
 
-    friend uint LEPLUGINFW_EXPORT qHash(const XhServiceRegistration&);
+    friend uint XHPLUGINFW_EXPORT qHash(const XhServiceRegistration&);
 
     XhServiceRegistration(XhServiceRegistrationPrivate* registrationPrivate);
 
@@ -50,6 +50,6 @@ private:
     Q_DECLARE_PRIVATE(XhServiceRegistration)
 };
 
-uint LEPLUGINFW_EXPORT qHash(const XhServiceRegistration& reg);
+uint XHPLUGINFW_EXPORT qHash(const XhServiceRegistration& reg);
 
 #endif // XHSERVICEREGISTRATION_H

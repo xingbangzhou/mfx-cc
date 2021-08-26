@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    LeMainFrame mainframe;
+    XhMainFrame mainframe;
 
     mainframe.startFramework();
 

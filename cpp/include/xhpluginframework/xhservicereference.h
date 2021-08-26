@@ -1,4 +1,4 @@
-#ifndef XHSERVICEREFERENCE_H
+﻿#ifndef XHSERVICEREFERENCE_H
 #define XHSERVICEREFERENCE_H
 
 #include <QVariant>
@@ -38,7 +38,7 @@ protected:
     friend class XhPluginPrivate;
     friend class XhPluginContext;
 
-    friend uint LEPLUGINFW_EXPORT qHash(const XhServiceReference&);
+    friend uint XHPLUGINFW_EXPORT qHash(const XhServiceReference&);
 
     XhServiceReference(XhServiceRegistrationPrivate* reg);
 
@@ -48,7 +48,7 @@ private:
   Q_DECLARE_PRIVATE(XhServiceReference)
 };
 
-uint LEPLUGINFW_EXPORT qHash(const XhServiceReference& srf);
+uint XHPLUGINFW_EXPORT qHash(const XhServiceReference& srf);
 
 Q_DECLARE_METATYPE(XhServiceReference)
 
