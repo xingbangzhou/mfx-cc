@@ -1,5 +1,6 @@
 ﻿#include "stable.h"
-#include "xhmainframe.h"
+#include "framework.h"
+#include "mainwindow.h"
 
 #include <QApplication>
 #include <QTimer>
@@ -7,12 +8,12 @@
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
+    FrameWork frameWork;
+    MainWindow mainWindow;
 
-    XhMainFrame mainframe;
+    frameWork.init();
 
-    mainframe.startFramework();
-
-    mainframe.testService();
+    mainWindow.show();
 
     return app.exec();
 }

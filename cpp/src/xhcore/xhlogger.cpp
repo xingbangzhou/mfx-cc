@@ -1,4 +1,4 @@
-#include "stable.h"
+﻿#include "stable.h"
 #include "xhcore/xhlogger.h"
 
 #include <QDebug>
@@ -22,7 +22,7 @@ void XhLogger::debug(const QString& s)
 
 void XhLogger::info(const QString& s)
 {
-    qDebug().nospace() << qUtf8Printable(m_name) << ": " << qUtf8Printable(s);
+    qInfo().nospace() << qUtf8Printable(m_name) << ": " << qUtf8Printable(s);
 }
 
 void XhLogger::trace(const QString& s)

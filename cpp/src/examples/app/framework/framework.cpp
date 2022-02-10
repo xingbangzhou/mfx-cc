@@ -1,5 +1,5 @@
-#include "stable.h"
-#include "xhmainframe.h"
+﻿#include "stable.h"
+#include "framework.h"
 #include "xhpluginframework/xhplugincontext.h"
 
 #include "shared/testaservice.h"
@@ -7,8 +7,8 @@
 #include <QTimer>
 #include <QCoreApplication>
 
-XhMainFrame::XhMainFrame(QObject* parent)
-    : QObject(parent), m_logger("XhMainFrame")
+FrameWork::FrameWork(QObject* parent)
+    : QObject(parent), m_logger("FrameWork")
 {
     m_pluginFw = m_fwFactory.getFramework();
 
@@ -18,22 +18,22 @@ XhMainFrame::XhMainFrame(QObject* parent)
 
 }
 
-QSharedPointer<XhPluginFramework> XhMainFrame::getPluginFw()
+QSharedPointer<XhPluginFramework> FrameWork::getPluginFw()
 {
     return m_pluginFw;
 }
 
-void XhMainFrame::startFramework()
+void FrameWork::init()
 {
     m_pluginFw->start();
 }
 
-void XhMainFrame::testService()
+void FrameWork::testService()
 {
     QTimer::singleShot(1000, this, SLOT(onTestService()));
 }
 
-void XhMainFrame::onServiceListening(XhServiceEvent event)
+void FrameWork::onServiceListening(XhServiceEvent event)
 {
     m_logger.info("OnServiceListening: type: " + event.getType());
     if (event.getType() == XhServiceEvent::REGISTERED)
@@ -43,7 +43,7 @@ void XhMainFrame::onServiceListening(XhServiceEvent event)
     }
 }
 
-void XhMainFrame::onTestService()
+void FrameWork::onTestService()
 {
     QSharedPointer<XhPlugin> plugin = m_pluginFw->getPluginContext()->installPlugin(QUrl::fromLocalFile(qApp->applicationDirPath() + "/plugina_test.dll"));
 

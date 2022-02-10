@@ -1,5 +1,5 @@
-#ifndef XHMAINFRAME_H
-#define XHMAINFRAME_H
+﻿#ifndef FRAMEWORK_H
+#define FRAMEWORK_H
 
 #include <QSharedPointer>
 
@@ -7,15 +7,15 @@
 #include "xhpluginframework/xhpluginframeworkfactory.h"
 #include "xhpluginframework/xhserviceevent.h"
 
-class XhMainFrame : public QObject
+class FrameWork : public QObject
 {
     Q_OBJECT
 public:
-    explicit XhMainFrame(QObject* parent = nullptr);
+    explicit FrameWork(QObject* parent = nullptr);
 
     QSharedPointer<XhPluginFramework> getPluginFw();
 
-    void startFramework();
+    void init();
 
     void testService();
 
@@ -32,4 +32,4 @@ private:
     XhLogger m_logger;
 };
 
-#endif // XHMAINFRAME_H
+#endif // FRAMEWORK_H

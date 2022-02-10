@@ -7,9 +7,8 @@ SUBDIRS = \
 	src/xhcore \
 	src/xhpluginframework \
 	src/xhplugins \
-	src/xhapp
+	src/examples
 
 xhpluginframework.depends = xhcore
-xhapp.depends = xhpluginframework
 
 DESTDIR = ../shadow

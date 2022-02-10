@@ -27,7 +27,7 @@ def copyDepends():
             deepCopy(name, shadowBin)
 
 def generateSln():
-    rootProPath = os.path.join('..', 'cpp', 'xhcor.pro')
+    rootProPath = os.path.join('..', 'cpp', 'src.pro')
     commandList = [
        'qmake',
         '-tp',
