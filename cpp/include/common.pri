@@ -1,17 +1,17 @@
 isEmpty(ROOT) {
     error("ROOT must be defined.")
 }
-
 INCLUDEPATH += $$PWD
+
 QMAKE_CFLAGS += /WX /MP
-QMAKE_CXXFLAGS += /WX /MP
+QMAKE_CXXFLAGS += /WX /MP -Zc:__cplusplus -std:c++17
 QMAKE_CFLAGS_RELEASE    = $$QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO
 QMAKE_CXXFLAGS_RELEASE  = $$QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO
-QMAKE_CXXFLAGS_RTTI_OFF = -GR-
-CONFIG += rtti_off
-CONFIG -= embed_manifest_dll
 CharacterSet = 1
 
+DEFINES += QT_DEPRECATED_WARNINGS
+
+CONFIG += c++17
 CONFIG(debug, debug|release) {
     QMAKE_LIBDIR += $$ROOT/bin/debug
     DESTDIR = $$ROOT/bin/debug
@@ -26,4 +26,3 @@ else {
 }
 
 DEFINES += NOMINMAX
-QMAKE_LFLAGS_RELEASE += /DEBUG

@@ -5,10 +5,7 @@ INCLUDEPATH += .
 
 SUBDIRS = \
 	src/xhcore \
-	src/xhpluginframework \
-	src/xhplugins \
-	src/examples
+    src/xhutils \
+	src/apps
 
-xhpluginframework.depends = xhcore
-
-DESTDIR = ../shadow
+#xhpluginframework.depends = xhcore

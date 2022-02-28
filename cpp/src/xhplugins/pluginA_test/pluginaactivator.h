@@ -17,6 +17,7 @@ class PluginAActivator : public QObject,
 #endif
 public:
     PluginAActivator();
+    ~PluginAActivator();
     
     void start(XhPluginContext* context);
     void stop(XhPluginContext* context);
@@ -24,5 +25,7 @@ public:
 private:
 	QScopedPointer<PluginAService> m_service;
 };
+
+extern "C" __declspec(dllexport) void* printA();
 
 #endif // PLUGINAACTIVATOR_H

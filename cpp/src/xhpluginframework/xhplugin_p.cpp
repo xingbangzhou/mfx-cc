@@ -8,6 +8,7 @@
 #include "xhservicereference_p.h"
 
 #include <QDateTime>
+#include <QDebug>
 
 qint64 msecsTo(const QDateTime& t1, const QDateTime& t2)
 {
@@ -127,7 +128,7 @@ void XhPluginPrivate::finalizeActivation()
 
 void XhPluginPrivate::start0()
 {
-    QString error = QString::null;
+    QString error = nullptr;
 
 	if (!pluginLoader.load())
 	{
@@ -159,6 +160,8 @@ void XhPluginPrivate::start0()
 
 void XhPluginPrivate::stop0()
 {
+    qDebug().nospace() << "pluginLoader: " << pluginLoader.isLoaded();
+
     bool wasStarted = state == XhPlugin::ACTIVE;
     state = XhPlugin::STOPPING;
     operation.fetchAndStoreOrdered(DEACTIVATING);
@@ -174,26 +177,29 @@ void XhPluginPrivate::stop0()
         }
         pluginActivator = nullptr;
     }
-     if (operation.fetchAndAddOrdered(0) == DEACTIVATING)
-     {
-         if (pluginContext)
-         {
+    if (operation.fetchAndAddOrdered(0) == DEACTIVATING)
+    {
+        if (pluginContext)
+        {
             removePluginResources();
             pluginContext->d_func()->invalidate();
             pluginContext.reset();
-         }
-     }
-     if (state != XhPlugin::UNINSTALLED)
-     {
+        }
+    }
+    if (state != XhPlugin::UNINSTALLED)
+    {
         state = XhPlugin::RESOLVED;
         // fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::STOPPED, this->q_func()));
 
         operationLock.wakeAll();
         operation.fetchAndStoreOrdered(IDLE);
-     }
+    }
+
+    pluginLoader.unload();
+    qDebug().nospace() << "pluginLoader: " << pluginLoader.isLoaded();
 }
 
-void XhPluginPrivate::waitOnOperation(LockObject* lock, const QString& src, bool longWait)
+void XhPluginPrivate::waitOnOperation(XhPluginPrivate::LockObject* lock, const QString& src, bool longWait)
 {
     src;
     if (operation.fetchAndAddOrdered(0) != IDLE)

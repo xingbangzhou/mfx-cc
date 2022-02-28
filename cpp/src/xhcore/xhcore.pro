@@ -5,9 +5,6 @@ include($$ROOT/include/common.pri)
 DEPENDPATH += $$ROOT/include/xhcore
 VPATH += $$ROOT/include/xhcore
 
-QMAKE_CFLAGS += -wd4100
-QMAKE_CXXFLAGS += -wd4100
-
 QT -= gui
 CONFIG += qt
 

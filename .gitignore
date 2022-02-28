@@ -1,6 +1,9 @@
 .vs/
 /depends/
 /shadow/
+bin/
+debug/
+release/
 
 # vsfiles
 *.vcproj.user
@@ -8,6 +11,8 @@
 *.vcxproj.filters
 *.vcxproj.user
 *.vcxproj.*.user
+*.vcxproj
+*.rc
 *.pro.user
 *.pdb
 *.idb
@@ -21,3 +26,5 @@ stdafx.h.cpp
 *.sdf
 *.opensdf
 *.aps
+*.stash
+*.sln

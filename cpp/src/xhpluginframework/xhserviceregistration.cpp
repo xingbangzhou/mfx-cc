@@ -1,4 +1,4 @@
-#include "stable.h"
+﻿#include "stable.h"
 #include "xhpluginframework/xhserviceregistration.h"
 #include "xhserviceregistration_p.h"
 #include "xhplugin_p.h"
@@ -136,7 +136,7 @@ XhServiceRegistration& XhServiceRegistration::operator=(const XhServiceRegistrat
     return *this;
 }
 
-uint qHash(const XhServiceRegistration& reg)
+size_t qHash(const XhServiceRegistration& reg)
 {
     return qHash(reg.d_func());
 }

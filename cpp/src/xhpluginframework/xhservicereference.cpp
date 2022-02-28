@@ -1,4 +1,4 @@
-#include "stable.h"
+﻿#include "stable.h"
 #include "xhpluginframework/xhservicereference.h"
 #include "xhservicereference_p.h"
 #include "xhserviceregistration_p.h"
@@ -25,7 +25,7 @@ XhServiceReference::XhServiceReference(XhServiceRegistrationPrivate* reg)
 
 XhServiceReference::operator bool() const
 {
-    return getPlugin();
+    return !!getPlugin();
 }
 
 XhServiceReference& XhServiceReference::operator=(int null)
