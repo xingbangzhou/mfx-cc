@@ -13,6 +13,7 @@ RESOURCES += \
     Resource.qrc
 	
 include(views/views.pri)
+include(framework/framework.pri)
 
 PRECOMPILED_HEADER = stable.h
 HEADERS += stable.h
