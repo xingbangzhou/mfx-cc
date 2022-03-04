@@ -7,6 +7,9 @@
 #include "toolbar.h"
 #include "mainview.h"
 
+#include <QFile>
+#include <QApplication>
+
 const int MinWindowWidth = 875;
 const int MinWindowHeight = 625;
 
@@ -16,13 +19,19 @@ MainWindow::MainWindow(QWidget* parent)
     , m_titleBar(new TitleBar(this))
     , m_toolBar(new ToolBar(this))
     , m_mainView(new MainView(this))
-{    
+{
     initialize();
 }
 
 MainWindow::~MainWindow()
 {
 
+}
+
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+    QMainWindow::resizeEvent(event);
+    m_titleBar->setMainMaximize(isMaximized());
 }
 
 void MainWindow::initialize()
@@ -38,10 +47,10 @@ void MainWindow::initialize()
     m_framelessHelper->addExcludeItem(m_toolBar);
     
     // 窗口主题颜色
-    QPalette palette(this->palette());
-    palette.setColor(QPalette::Window, QColorConstants::White);
-    setAutoFillBackground(true);
-    setPalette(palette);
+    QFile file(":/resources/qss/default.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QString::fromLatin1(file.readAll());
+    qApp->setStyleSheet(styleSheet);
 
     // 布局
     QWidget* widget = new QWidget(this);

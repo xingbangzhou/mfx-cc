@@ -17,6 +17,9 @@ public:
     ~MainWindow();
 
 private:
+    void resizeEvent(QResizeEvent* event) override;
+
+private:
     void initialize();
 
     FramelessHelper* m_framelessHelper;

@@ -1,0 +1,55 @@
+QMainWindow {
+    background-color: #FFFFFF;
+}
+
+QWidget {
+    margin: 0px;
+}
+
+.ToolBar {
+    background-color: rgb(46, 46, 46);
+}
+
+QPushButton {
+    max-width: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    border: none;
+    background-repeat: none;
+    background-position: center;
+}
+
+QPushButton:hover {
+    background-color: rgb(226, 226, 226);
+}
+
+QPushButton:pressed {
+    background-color: rgb(208, 208, 208);
+}
+
+QPushButton#close {
+    background-image: url(:/resources/svgs/close.svg);
+    background-repeat: none;
+    background-position: center;
+}
+
+QPushButton#close:hover {
+    background-color: rgb(254, 111, 116);
+}
+
+QPushButton#close:pressed {
+    background-color: rgb(222, 73, 74);
+}
+
+QPushButton#minimize {
+    background-image: url(:/resources/svgs/minimize.svg);
+}
+
+QPushButton#maximize {
+    background-image: url(:/resources/svgs/fullscreen.svg);
+}
+
+QPushButton#maximize[maximizeProperty=true] {
+    background-image: url(:/resources/svgs/maximize.svg);
+}

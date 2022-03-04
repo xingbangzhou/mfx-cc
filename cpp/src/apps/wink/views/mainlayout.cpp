@@ -72,7 +72,7 @@ void MainLayout::setGeometry(const QRect& r)
         return;
 
     auto x = r.x(), y = r.y(), w = r.width(), h = r.height();
-    auto lw = 60, th = 48;
+    auto lw = 60, th = 32;
     QLayoutItem* item = m_items[0];
     item->setGeometry({ { x, y }, QSize{ lw, h } });
     item = m_items[1];

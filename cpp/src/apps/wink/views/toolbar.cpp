@@ -1,12 +1,21 @@
 ﻿#include "stable.h"
 #include "toolbar.h"
 
-ToolBar::ToolBar(QWidget* parent /* = nullptr */) : QWidget(parent)
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QListView>
+
+ToolBar::ToolBar(QWidget* parent)
+    : QWidget(parent)
+    , m_listView(new QListView(this))
 {
-    QPalette palette(this->palette());
-    palette.setColor(QPalette::Window, QColor(46,46,46));
-    setAutoFillBackground(true);
-    setPalette(palette);
+    setObjectName("ToolBar");
+
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    layout->setAlignment(Qt::AlignHCenter);
+    layout->addSpacing(32);
+    layout->addWidget(m_listView);
+
 }
 
 ToolBar::~ToolBar()

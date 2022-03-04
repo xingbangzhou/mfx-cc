@@ -2,8 +2,9 @@
 #define TOOLBAR_H
 
 #include <QWidget>
-#include <QListView>
 
+class QLabel;
+class QListView;
 class ToolBar : public QWidget
 {
     Q_OBJECT

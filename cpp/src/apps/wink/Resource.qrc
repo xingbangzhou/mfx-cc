@@ -1,4 +1,9 @@
 <RCC>
     <qresource prefix="/">
+        <file>resources/qss/default.qss</file>
+        <file>resources/svgs/close.svg</file>
+        <file>resources/svgs/fullscreen.svg</file>
+        <file>resources/svgs/maximize.svg</file>
+        <file>resources/svgs/minimize.svg</file>
     </qresource>
 </RCC>

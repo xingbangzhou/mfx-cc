@@ -8,22 +8,24 @@ class QPushButton;
 class TitleBar : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit TitleBar(QWidget* parent = nullptr);
     ~TitleBar();
+
+    void setMainMaximize(bool flag);
 
     void getBtns(QList<QWidget*>& out) const;
 
 private slots:
     void closed();
-    void minmaxed();
+    void maximized();
     void minized();
 
 private:
-    QPushButton* m_closeBtn;
-    QPushButton* m_minmaxBtn;
-    QPushButton* m_minizeBtn;
+    bool m_mainMaximize;
+    QPushButton* m_btnClose;
+    QPushButton* m_btnMaximize;
+    QPushButton* m_btnMinimize;
 };
 
 #endif // TITLEBAR_H
