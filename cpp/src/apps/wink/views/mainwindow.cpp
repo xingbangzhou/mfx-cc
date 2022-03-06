@@ -46,12 +46,6 @@ void MainWindow::initialize()
         m_framelessHelper->addExcludeItem(btn);
     m_framelessHelper->addExcludeItem(m_toolBar);
     
-    // 窗口主题颜色
-    QFile file(":/resources/qss/default.qss");
-    file.open(QFile::ReadOnly);
-    QString styleSheet = QString::fromLatin1(file.readAll());
-    qApp->setStyleSheet(styleSheet);
-
     // 布局
     QWidget* widget = new QWidget(this);
     m_layout = new MainLayout(widget);
@@ -59,5 +53,11 @@ void MainWindow::initialize()
     m_layout->addWidget(m_titleBar);
     m_layout->addWidget(m_mainView);
     setCentralWidget(widget);
+
+    // 窗口主题颜色
+    QFile file(":/resources/qss/default.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QString::fromLatin1(file.readAll());
+    qApp->setStyleSheet(styleSheet);
 }
 

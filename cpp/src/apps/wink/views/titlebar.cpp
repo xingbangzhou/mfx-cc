@@ -11,6 +11,8 @@ TitleBar::TitleBar(QWidget* parent)
     : QWidget(parent)
     , m_mainMaximize(false)
 {
+    setObjectName(QString("TitleBar"));
+
     m_btnMinimize = new QPushButton(this);
     m_btnMinimize->setObjectName("minimize");
     connect(m_btnMinimize, SIGNAL(clicked(bool)), this, SLOT(minized()));

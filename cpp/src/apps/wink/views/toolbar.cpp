@@ -1,24 +1,25 @@
 ﻿#include "stable.h"
 #include "toolbar.h"
 
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QListView>
+#include <QStyleOption>
+#include <QPainter>
 
 ToolBar::ToolBar(QWidget* parent)
     : QWidget(parent)
-    , m_listView(new QListView(this))
 {
     setObjectName("ToolBar");
-
-    QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->setAlignment(Qt::AlignHCenter);
-    layout->addSpacing(32);
-    layout->addWidget(m_listView);
-
 }
 
 ToolBar::~ToolBar()
 {
 
+}
+
+void ToolBar::paintEvent(QPaintEvent* event)
+{
+    Q_UNUSED(event);
+    QStyleOption styleOpt;
+    styleOpt.initFrom(this);
+    QPainter painter(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &styleOpt, &painter, this);
 }
