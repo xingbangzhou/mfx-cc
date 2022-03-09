@@ -2,7 +2,19 @@
 #define TITLEBAR_H
 
 #include <QWidget>
+#include <QPushButton>
 #include <QList>
+
+class FlatButton : public QPushButton
+{
+    Q_OBJECT
+public:
+    explicit FlatButton(QWidget* parent);
+    ~FlatButton();
+
+protected:
+    void paintEvent(QPaintEvent*) override;
+};
 
 class QPushButton;
 class TitleBar : public QWidget
@@ -23,9 +35,9 @@ private slots:
 
 private:
     bool m_mainMaximize;
-    QPushButton* m_btnClose;
-    QPushButton* m_btnMaximize;
-    QPushButton* m_btnMinimize;
+    FlatButton* m_btnClose;
+    FlatButton* m_btnMaximize;
+    FlatButton* m_btnMinimize;
 };
 
 #endif // TITLEBAR_H

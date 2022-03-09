@@ -49,9 +49,7 @@ void MainWindow::initialize()
     // 布局
     QWidget* widget = new QWidget(this);
     m_layout = new MainLayout(widget);
-    m_layout->addWidget(m_toolBar);
-    m_layout->addWidget(m_titleBar);
-    m_layout->addWidget(m_mainView);
+    m_layout->init(m_toolBar, m_titleBar, m_mainView);
     setCentralWidget(widget);
 
     // 窗口主题颜色

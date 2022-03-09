@@ -2,6 +2,7 @@ isEmpty(ROOT) {
     error("ROOT must be defined.")
 }
 INCLUDEPATH += $$PWD
+INCLUDEPATH += $$PWD/ffmpeg
 
 QMAKE_CFLAGS += /WX /MP
 QMAKE_CXXFLAGS += /WX /MP -Zc:__cplusplus -std:c++17

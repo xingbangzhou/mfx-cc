@@ -2,10 +2,31 @@
 #include "titlebar.h"
 
 #include <QApplication>
-#include <QPushButton>
 #include <QBoxLayout>
 #include <QVariant>
 #include <QStyle>
+#include <QStyleOption>
+#include <QPainter>
+
+FlatButton::FlatButton(QWidget* parent) 
+    : QPushButton(parent)
+{
+
+}
+
+FlatButton::~FlatButton()
+{
+}
+
+void FlatButton::paintEvent(QPaintEvent* event)
+{
+    Q_UNUSED(event);
+    QStyleOption styleOpt;
+    styleOpt.initFrom(this);
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    style()->drawPrimitive(QStyle::PE_PanelButtonCommand, &styleOpt, &painter, this);
+}
 
 TitleBar::TitleBar(QWidget* parent) 
     : QWidget(parent)
@@ -13,13 +34,13 @@ TitleBar::TitleBar(QWidget* parent)
 {
     setObjectName(QString("TitleBar"));
 
-    m_btnMinimize = new QPushButton(this);
+    m_btnMinimize = new FlatButton(this);
     m_btnMinimize->setObjectName("minimize");
     connect(m_btnMinimize, SIGNAL(clicked(bool)), this, SLOT(minized()));
-    m_btnMaximize = new QPushButton(this);
+    m_btnMaximize = new FlatButton(this);
     m_btnMaximize->setObjectName("maximize");
     connect(m_btnMaximize, SIGNAL(clicked(bool)), this, SLOT(maximized()));
-    m_btnClose = new QPushButton(this);
+    m_btnClose = new FlatButton(this);
     m_btnClose->setObjectName("close");
     connect(m_btnClose, SIGNAL(clicked(bool)), this, SLOT(closed()));
 

@@ -10,10 +10,6 @@ QWidget {
     background-color: rgb(46, 46, 46);
 }
 
-QWidget#TitleBar {
-    background-color: rgb(46, 46, 46);
-}
-
 QPushButton {
     max-width: 32px;
     min-width: 32px;
@@ -33,9 +29,7 @@ QPushButton:pressed {
 }
 
 QPushButton#close {
-    background-image: url(:/resources/svg/close.svg);
-    background-repeat: none;
-    background-position: center;
+    background-image: url(:/resources/png/close.png);
 }
 
 QPushButton#close:hover {
@@ -47,13 +41,13 @@ QPushButton#close:pressed {
 }
 
 QPushButton#minimize {
-    background-image: url(:/resources/svg/minimize.svg);
+    background-image: url(:/resources/png/minimize.png);
 }
 
 QPushButton#maximize {
-    background-image: url(:/resources/svg/fullscreen.svg);
+    background-image: url(:/resources/png/fullscreen.png);
 }
 
 QPushButton#maximize[maximizeProperty=true] {
-    background-image: url(:/resources/svg/maximize.svg);
+    background-image: url(:/resources/png/maximize.png);
 }
