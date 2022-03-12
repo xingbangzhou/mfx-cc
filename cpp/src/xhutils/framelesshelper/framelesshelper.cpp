@@ -2,7 +2,9 @@
 #include "xhutils/framelesshelper.h"
 #include "framelesshelper_p.h"
 
-FramelessHelper::FramelessHelper(QWidget* parent) : QObject(parent), d_ptr(new FramelessHelperPrivate())
+FramelessHelper::FramelessHelper(QWidget* parent)
+    : QObject(parent)
+    , d_ptr(new FramelessHelperPrivate())
 {
     Q_D(FramelessHelper);
     d->window = parent;

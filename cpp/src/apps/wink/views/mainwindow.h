@@ -5,7 +5,7 @@
 
 class FramelessHelper;
 class MainLayout;
-class ToolBar;
+class BizBar;
 class TitleBar;
 class MainView;
 class MainWindow : public QMainWindow
@@ -24,7 +24,7 @@ private:
 
     FramelessHelper* m_framelessHelper;
     MainLayout* m_layout;
-    ToolBar* m_toolBar;
+    BizBar* m_bizBar;
     TitleBar* m_titleBar;
     MainView* m_mainView;
 };

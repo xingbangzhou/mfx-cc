@@ -13,6 +13,7 @@ CharacterSet = 1
 DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++17
+
 CONFIG(debug, debug|release) {
     QMAKE_LIBDIR += $$ROOT/bin/debug
     DESTDIR = $$ROOT/bin/debug

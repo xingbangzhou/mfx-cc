@@ -2,6 +2,7 @@ TEMPLATE = lib
 
 ROOT = ../..
 include($$ROOT/include/common.pri)
+INCLUDEPATH += $$ROOT/include/xhutils
 DEPENDPATH += $$ROOT/include/xhutils
 VPATH += $$ROOT/include/xhutils
 
@@ -14,4 +15,4 @@ include(framelesshelper/framelesshelper.pri)
 PRECOMPILED_HEADER = stable.h
 HEADERS += \
         stable.h \
-        xhcoreexport.h
+        xhutilsexport.h

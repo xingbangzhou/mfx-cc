@@ -7,11 +7,12 @@
 #include <QStyle>
 #include <QStyleOption>
 #include <QPainter>
+#include <QLabel>
 
 FlatButton::FlatButton(QWidget* parent) 
     : QPushButton(parent)
 {
-
+    
 }
 
 FlatButton::~FlatButton()

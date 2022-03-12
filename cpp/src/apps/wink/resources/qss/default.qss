@@ -6,8 +6,13 @@ QWidget {
     margin: 0px;
 }
 
-.ToolBar {
+.BizBar {
     background-color: rgb(46, 46, 46);
+}
+
+QListView {
+    background-color: transparent;
+    border: none;
 }
 
 QPushButton {
@@ -29,7 +34,7 @@ QPushButton:pressed {
 }
 
 QPushButton#close {
-    background-image: url(:/resources/png/close.png);
+    background-image: url(:/resources/titlebar/close.png);
 }
 
 QPushButton#close:hover {
@@ -41,13 +46,13 @@ QPushButton#close:pressed {
 }
 
 QPushButton#minimize {
-    background-image: url(:/resources/png/minimize.png);
+    background-image: url(:/resources/titlebar/minimize.png);
 }
 
 QPushButton#maximize {
-    background-image: url(:/resources/png/fullscreen.png);
+    background-image: url(:/resources/titlebar/fullscreen.png);
 }
 
 QPushButton#maximize[maximizeProperty=true] {
-    background-image: url(:/resources/png/maximize.png);
+    background-image: url(:/resources/titlebar/maximize.png);
 }

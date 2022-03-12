@@ -2,6 +2,7 @@ TEMPLATE = lib
 
 ROOT = ../..
 include($$ROOT/include/common.pri)
+INCLUDEPATH += $$ROOT/include/xhcore
 DEPENDPATH += $$ROOT/include/xhcore
 VPATH += $$ROOT/include/xhcore
 

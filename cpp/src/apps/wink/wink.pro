@@ -14,6 +14,7 @@ RESOURCES += \
 	
 include(views/views.pri)
 include(framework/framework.pri)
+include(bizcore/bizcore.pri)
 
 PRECOMPILED_HEADER = stable.h
 HEADERS += stable.h

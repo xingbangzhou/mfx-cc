@@ -2,14 +2,9 @@
 #include "wkframework.h"
 #include "mainwindow.h"
 
-extern "C"
-{
-    #include <libavcodec/avcodec.h>
-}
-#pragma comment(lib, "avcodec.lib")
-
 int main(int argc, char* argv[])
 {
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     WKFramework app(argc, argv);
 
     MainWindow mainWindow;
