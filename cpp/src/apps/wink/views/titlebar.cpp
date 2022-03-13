@@ -37,7 +37,6 @@ void FlatButton::paintEvent(QPaintEvent* event)
 /************************************************************************/
 TitleBar::TitleBar(QWidget* parent) 
     : QWidget(parent)
-    , m_mainMaximize(false)
 {
     setObjectName(QString("TitleBar"));
 
@@ -69,14 +68,10 @@ TitleBar::~TitleBar()
 
 void TitleBar::setMainMaximize(bool flag)
 {
-    if (m_mainMaximize != flag)
-    {
-        m_mainMaximize = flag;
-        m_btnMaximize->setProperty("maximizeProperty", QVariant(flag));
-        qApp->style()->unpolish(m_btnMaximize);
-        qApp->style()->polish(m_btnMaximize);
-        m_btnMaximize->update();
-    }
+    m_btnMaximize->setProperty("maximizeProperty", QVariant(flag));
+    qApp->style()->unpolish(m_btnMaximize);
+    qApp->style()->polish(m_btnMaximize);
+    m_btnMaximize->update();
 }
 
 void TitleBar::getBtns(QList<QWidget*>& out) const

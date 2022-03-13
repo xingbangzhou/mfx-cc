@@ -34,8 +34,6 @@ private slots:
     void minized();
 
 private:
-    bool m_mainMaximize;
-    
     FlatButton* m_btnClose;
     FlatButton* m_btnMaximize;
     FlatButton* m_btnMinimize;

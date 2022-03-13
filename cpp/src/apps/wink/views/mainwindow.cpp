@@ -11,12 +11,6 @@
 #include <QApplication>
 #include <QMoveEvent>
 
-#ifdef Q_OS_WINDOWS
-#include <windows.h>
-
-#endif // OS_WINDOWS
-
-
 const int MinWindowWidth = 875;
 const int MinWindowHeight = 625;
 
@@ -34,29 +28,21 @@ MainWindow::~MainWindow()
 
 }
 
+bool MainWindow::event(QEvent* ev)
+{
+   bool result = QMainWindow::event(ev);
+
+    if (ev->type() == QEvent::WindowStateChange)
+    {
+        m_titleBar->setMainMaximize(isMaximized());
+    }
+
+    return result;
+}
+
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
     QMainWindow::resizeEvent(event);
-    auto isMaximize = isMaximized();
-    m_titleBar->setMainMaximize(isMaximize);
-
-#ifdef Q_OS_WINDOWS
-    if (isMaximize)
-        return;
-
-    const HWND hwnd = reinterpret_cast<HWND>(winId());
-    WINDOWPLACEMENT windowPlacement;
-    windowPlacement.length = sizeof(WINDOWPLACEMENT);
-    GetWindowPlacement(hwnd, &windowPlacement);
-    auto plw = windowPlacement.rcNormalPosition.right - windowPlacement.rcNormalPosition.left;
-    auto plh = windowPlacement.rcNormalPosition.bottom - windowPlacement.rcNormalPosition.top;
-
-    if ( width() < plw || height() < plh)
-    {
-        resize(plw, plh);
-    }
-
-#endif // Q_OS_WINDOWS
 }
 
 void MainWindow::moveEvent(QMoveEvent* event)

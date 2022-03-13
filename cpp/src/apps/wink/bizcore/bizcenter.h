@@ -12,14 +12,26 @@ public:
     explicit BizCenter(QObject* parent = nullptr);
     ~BizCenter();
 
+    void setActiveId(const QString& id);
+    void setActiveIndex(const QModelIndex& index);
+    
+    const QString& activedId() const;
+
+    QModelIndex activedIndex() const;
+
+    // QAbstractListModel
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
-private slots:
-    void onCurrentChanged(const QModelIndex& current);
+signals:
+    void activedChanged(const QModelIndex& index);
 
 private:
-    QVector<BizItemData> m_vctItems;
+    void clearActived();
+
+private:
+    QList<BizItemData> m_itemList;
+    QString m_activedId;
 };
 
 #endif // BIZCENTER_H

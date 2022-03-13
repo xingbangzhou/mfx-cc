@@ -17,8 +17,9 @@ public:
     ~MainWindow();
 
 private:
-    void resizeEvent(QResizeEvent* event) override;
-    void moveEvent(QMoveEvent* event) override;
+    bool event(QEvent*) override;
+    void resizeEvent(QResizeEvent*) override;
+    void moveEvent(QMoveEvent*) override;
 
 private:
     void initialize();

@@ -61,8 +61,11 @@ BizView::BizView(QWidget* parent)
 {
     setObjectName("BizView");
     
+    auto bizCenter = wkApp->bizCenter();
     m_listView->setModel(wkApp->bizCenter());
     m_listView->setItemDelegate(new BizItemDelegate(this));
+    connect(m_listView, &QListView::clicked, this, &BizView::onItemclicked);
+    connect(bizCenter, &BizCenter::activedChanged, this, &BizView::onActivedChanged);
 
     QVBoxLayout* layout = new QVBoxLayout(this);
     m_avatar->setFixedSize({40, 40});
@@ -70,8 +73,6 @@ BizView::BizView(QWidget* parent)
     layout->addSpacing(20);
     layout->addWidget(m_listView);
     setLayout(layout);
-
-    connect(m_listView, &QListView::clicked, this, &BizView::onItemclicked);
 }
 
 BizView::~BizView()
@@ -94,6 +95,11 @@ void BizView::paintEvent(QPaintEvent* event)
 }
 
 void BizView::onItemclicked(const QModelIndex& index)
+{
+    wkApp->bizCenter()->setActiveIndex(index);
+}
+
+void BizView::onActivedChanged(const QModelIndex& index)
 {
     m_listView->setCurrentIndex(index);
 }

@@ -42,6 +42,7 @@ protected:
 
 private slots:
     void onItemclicked(const QModelIndex& index);
+    void onActivedChanged(const QModelIndex& index);
 
 private:
     Avatar* m_avatar;
