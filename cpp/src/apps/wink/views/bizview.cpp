@@ -6,8 +6,9 @@
 #include <QVBoxLayout>
 #include <QPaintEvent>
 
-#include "bizbar.h"
+#include "bizview.h"
 #include "bizcenter.h"
+#include "wkframework.h"
 
 /************************************************************************/
 /* Avatar                                                               */
@@ -53,14 +54,14 @@ void Avatar::mousePressEvent(QMouseEvent* event)
 /************************************************************************/
 /* BizBar                                                               */
 /************************************************************************/
-BizBar::BizBar(QWidget* parent) 
+BizView::BizView(QWidget* parent) 
     : QWidget(parent)
     , m_avatar(new Avatar(this))
     , m_listView(new QListView(this))
 {
-    setObjectName("BizBar");
+    setObjectName("BizView");
     
-    m_listView->setModel(new BizCenter(this));
+    m_listView->setModel(wkApp->bizCenter());
     m_listView->setItemDelegate(new BizItemDelegate(this));
 
     QVBoxLayout* layout = new QVBoxLayout(this);
@@ -71,17 +72,17 @@ BizBar::BizBar(QWidget* parent)
     setLayout(layout);
 }
 
-BizBar::~BizBar()
+BizView::~BizView()
 {
 
 }
 
-Avatar* BizBar::avatar() const
+Avatar* BizView::avatar() const
 {
     return m_avatar;
 }
 
-void BizBar::paintEvent(QPaintEvent* event)
+void BizView::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
     QStyleOption styleOpt;

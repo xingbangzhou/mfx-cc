@@ -1,5 +1,5 @@
-﻿#ifndef BIZBAR_H
-#define BIZBAR_H
+﻿#ifndef BIZVIEW_H
+#define BIZVIEW_H
 
 #include <QWidget>
 
@@ -27,13 +27,13 @@ private:
 };
 
 class QListView;
-class BizBar : public QWidget
+class BizView : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit BizBar(QWidget* parent = nullptr);
-    ~BizBar();
+    explicit BizView(QWidget* parent = nullptr);
+    ~BizView();
 
     Avatar* avatar() const;
 
@@ -45,4 +45,4 @@ private:
     QListView* m_listView;
 };
 
-#endif // BIZBAR_H
+#endif // BIZVIEW_H

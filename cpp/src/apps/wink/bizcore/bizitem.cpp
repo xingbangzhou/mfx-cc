@@ -17,7 +17,7 @@ void BizItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
     BizItemData itemData = var.value<BizItemData>();
     const QRect& rect = option.rect;
 
-    if (option.state.testFlag(QStyle::State_MouseOver))
+    if (option.state.testFlags(QStyle::State_MouseOver | QStyle::State_Selected))
     {
         QImage imageHover;
         imageHover.load(itemData.imageHover);

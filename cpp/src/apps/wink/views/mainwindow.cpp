@@ -4,7 +4,7 @@
 #include "xhutils/framelesshelper.h"
 #include "mainlayout.h"
 #include "titlebar.h"
-#include "bizbar.h"
+#include "bizview.h"
 #include "mainview.h"
 
 #include <QFile>
@@ -23,7 +23,7 @@ const int MinWindowHeight = 625;
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent)
     , m_titleBar(new TitleBar(this))
-    , m_bizBar(new BizBar(this))
+    , m_bizView(new BizView(this))
     , m_mainView(new MainView(this))
 {
      initialize();
@@ -70,18 +70,18 @@ void MainWindow::initialize()
     setWindowFlag(Qt::FramelessWindowHint);
     setMinimumSize({ MinWindowWidth, MinWindowHeight });
     m_framelessHelper = new FramelessHelper(this);
-    m_framelessHelper->setTitleBarHeight(200);
+    m_framelessHelper->setTitleBarHeight(32);
     QList<QWidget*> excludeItems;
     m_titleBar->getBtns(excludeItems);
-    excludeItems.push_back(m_bizBar->avatar());
+    excludeItems.push_back(m_bizView->avatar());
     for (auto item : excludeItems)
         m_framelessHelper->addExcludeItem(item);
-    m_framelessHelper->addExcludeItem(m_bizBar);
+    m_framelessHelper->addExcludeItem(m_bizView);
     
     // 布局
     QWidget* widget = new QWidget(this);
     m_layout = new MainLayout(widget);
-    m_layout->init(m_bizBar, m_titleBar, m_mainView);
+    m_layout->init(m_bizView, m_titleBar, m_mainView);
     setCentralWidget(widget);
 
     // 窗口主题颜色
