@@ -26,3 +26,7 @@ QVariant BizCenter::data(const QModelIndex& index, int role /*= Qt::DisplayRole*
     BizItemData data = m_vctItems.value(index.row());
     return QVariant::fromValue(data);
 }
+
+void BizCenter::onCurrentChanged(const QModelIndex& current)
+{
+}

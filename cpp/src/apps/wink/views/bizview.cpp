@@ -70,6 +70,8 @@ BizView::BizView(QWidget* parent)
     layout->addSpacing(20);
     layout->addWidget(m_listView);
     setLayout(layout);
+
+    connect(m_listView, &QListView::clicked, this, &BizView::onItemclicked);
 }
 
 BizView::~BizView()
@@ -89,4 +91,9 @@ void BizView::paintEvent(QPaintEvent* event)
     styleOpt.initFrom(this);
     QPainter painter(this);
     style()->drawPrimitive(QStyle::PE_Widget, &styleOpt, &painter, this);
+}
+
+void BizView::onItemclicked(const QModelIndex& index)
+{
+    m_listView->setCurrentIndex(index);
 }

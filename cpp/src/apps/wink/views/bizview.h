@@ -40,6 +40,9 @@ public:
 protected:
     void paintEvent(QPaintEvent* event) override;
 
+private slots:
+    void onItemclicked(const QModelIndex& index);
+
 private:
     Avatar* m_avatar;
     QListView* m_listView;
