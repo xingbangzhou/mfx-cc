@@ -108,7 +108,7 @@ bool NativeWindowHelper::nativeEventFilter(void* msg, qintptr* result)
                 params.rgrc[0].right = g.right() + m.right() + 1;
                 params.rgrc[0].bottom = g.bottom() + m.bottom() + 1;
             }
-
+            
             if (result) *result = 0;
             return true;
         }

@@ -9,6 +9,13 @@
 
 #include <QFile>
 #include <QApplication>
+#include <QMoveEvent>
+
+#ifdef Q_OS_WINDOWS
+#include <windows.h>
+
+#endif // OS_WINDOWS
+
 
 const int MinWindowWidth = 875;
 const int MinWindowHeight = 625;
@@ -30,7 +37,31 @@ MainWindow::~MainWindow()
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
     QMainWindow::resizeEvent(event);
-    m_titleBar->setMainMaximize(isMaximized());
+    auto isMaximize = isMaximized();
+    m_titleBar->setMainMaximize(isMaximize);
+
+#ifdef Q_OS_WINDOWS
+    if (isMaximize)
+        return;
+
+    const HWND hwnd = reinterpret_cast<HWND>(winId());
+    WINDOWPLACEMENT windowPlacement;
+    windowPlacement.length = sizeof(WINDOWPLACEMENT);
+    GetWindowPlacement(hwnd, &windowPlacement);
+    auto plw = windowPlacement.rcNormalPosition.right - windowPlacement.rcNormalPosition.left;
+    auto plh = windowPlacement.rcNormalPosition.bottom - windowPlacement.rcNormalPosition.top;
+
+    if ( width() < plw || height() < plh)
+    {
+        resize(plw, plh);
+    }
+
+#endif // Q_OS_WINDOWS
+}
+
+void MainWindow::moveEvent(QMoveEvent* event)
+{
+    QMainWindow::moveEvent(event);
 }
 
 void MainWindow::initialize()
@@ -39,11 +70,12 @@ void MainWindow::initialize()
     setWindowFlag(Qt::FramelessWindowHint);
     setMinimumSize({ MinWindowWidth, MinWindowHeight });
     m_framelessHelper = new FramelessHelper(this);
-    m_framelessHelper->setTitleBarHeight(48);
-    QList<QWidget*> btns;
-    m_titleBar->getBtns(btns);
-    for (auto btn : btns)
-        m_framelessHelper->addExcludeItem(btn);
+    m_framelessHelper->setTitleBarHeight(200);
+    QList<QWidget*> excludeItems;
+    m_titleBar->getBtns(excludeItems);
+    excludeItems.push_back(m_bizBar->avatar());
+    for (auto item : excludeItems)
+        m_framelessHelper->addExcludeItem(item);
     m_framelessHelper->addExcludeItem(m_bizBar);
     
     // 布局

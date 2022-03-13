@@ -9,6 +9,9 @@
 #include <QPainter>
 #include <QLabel>
 
+/************************************************************************/
+/* FlatButton                                                           */
+/************************************************************************/
 FlatButton::FlatButton(QWidget* parent) 
     : QPushButton(parent)
 {
@@ -29,6 +32,9 @@ void FlatButton::paintEvent(QPaintEvent* event)
     style()->drawPrimitive(QStyle::PE_PanelButtonCommand, &styleOpt, &painter, this);
 }
 
+/************************************************************************/
+/* TitleBar                                                             */
+/************************************************************************/
 TitleBar::TitleBar(QWidget* parent) 
     : QWidget(parent)
     , m_mainMaximize(false)

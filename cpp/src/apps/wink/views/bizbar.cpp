@@ -45,6 +45,11 @@ void Avatar::paintEvent(QPaintEvent* event)
     painter.drawImage(rect, m_imageDevice);
 }
 
+void Avatar::mousePressEvent(QMouseEvent* event)
+{
+    QWidget::mousePressEvent(event);
+}
+
 /************************************************************************/
 /* BizBar                                                               */
 /************************************************************************/
@@ -69,6 +74,11 @@ BizBar::BizBar(QWidget* parent)
 BizBar::~BizBar()
 {
 
+}
+
+Avatar* BizBar::avatar() const
+{
+    return m_avatar;
 }
 
 void BizBar::paintEvent(QPaintEvent* event)

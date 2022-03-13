@@ -18,6 +18,7 @@ public:
 
 private:
     void resizeEvent(QResizeEvent* event) override;
+    void moveEvent(QMoveEvent* event) override;
 
 private:
     void initialize();

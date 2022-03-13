@@ -15,7 +15,7 @@ QListView {
     border: none;
 }
 
-QPushButton {
+.FlatButton {
     max-width: 32px;
     min-width: 32px;
     min-height: 32px;
@@ -25,34 +25,34 @@ QPushButton {
     background-position: center;
 }
 
-QPushButton:hover {
+.FlatButton:hover {
     background-color: rgb(226, 226, 226);
 }
 
-QPushButton:pressed {
+.FlatButton:pressed {
     background-color: rgb(208, 208, 208);
 }
 
-QPushButton#close {
+.FlatButton#close {
     background-image: url(:/resources/titlebar/close.png);
 }
 
-QPushButton#close:hover {
+.FlatButton#close:hover {
     background-color: rgb(254, 111, 116);
 }
 
-QPushButton#close:pressed {
+.FlatButton#close:pressed {
     background-color: rgb(222, 73, 74);
 }
 
-QPushButton#minimize {
+.FlatButton#minimize {
     background-image: url(:/resources/titlebar/minimize.png);
 }
 
-QPushButton#maximize {
+.FlatButton#maximize {
     background-image: url(:/resources/titlebar/fullscreen.png);
 }
 
-QPushButton#maximize[maximizeProperty=true] {
+.FlatButton#maximize[maximizeProperty=true] {
     background-image: url(:/resources/titlebar/maximize.png);
 }

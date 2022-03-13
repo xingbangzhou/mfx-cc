@@ -13,11 +13,10 @@ void NativeWindowFilter::deliver(QWindow *window, NativeWindowHelper *helper)
     Q_CHECK_PTR(window);
 
     if (!NativeWindowFilterPrivate::instance) {
-        QCoreApplication *appc = QCoreApplication::instance();
-        if (appc) {
+        if (qApp) {
             auto filter = new NativeWindowFilter();
             NativeWindowFilterPrivate::instance.reset(filter);
-            appc->installNativeEventFilter(filter);
+            qApp->installNativeEventFilter(filter);
         }
     }
 

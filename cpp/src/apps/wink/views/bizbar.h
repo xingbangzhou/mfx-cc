@@ -19,6 +19,7 @@ signals:
 
 protected:
     void paintEvent(QPaintEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
 
 private:
     QString m_image;
@@ -33,6 +34,8 @@ class BizBar : public QWidget
 public:
     explicit BizBar(QWidget* parent = nullptr);
     ~BizBar();
+
+    Avatar* avatar() const;
 
 protected:
     void paintEvent(QPaintEvent* event) override;
