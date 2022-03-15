@@ -18,7 +18,7 @@ bool isCompositionEnabled()
 {
     BOOL enabled = FALSE;
     DwmIsCompositionEnabled(&enabled);
-    return enabled;
+    return static_cast<bool>(enabled);
 }
 
 void extendFrameIntoClientArea(QWindow* window, int left, int top, int right, int bottom)
