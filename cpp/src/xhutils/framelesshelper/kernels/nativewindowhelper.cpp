@@ -11,6 +11,7 @@
 #include <QScreen>
 #include <QEvent>
 #include <QOperatingSystemVersion>
+#include <QDebug>
 
 // class NativeWindowHelper
 
@@ -99,34 +100,33 @@ bool NativeWindowHelper::nativeEventFilter(void* msg, qintptr* result)
         if (TRUE == wParam) {
             if (d->isMaximized()) {
                 NCCALCSIZE_PARAMS &params = *reinterpret_cast<NCCALCSIZE_PARAMS *>(lParam);
+                RECT g = reinterpret_cast<const NCCALCSIZE_PARAMS*>(lParam)->rgrc[0];
+                QMargins m = { 8, 8, 8, 8 };
 
-                QRect g = d->availableGeometry();
-                QMargins m = d->maximizedMargins();
-
-                params.rgrc[0].top = g.top() - m.top();
-                params.rgrc[0].left = g.left() - m.left();
-                params.rgrc[0].right = g.right() + m.right() + 1;
-                params.rgrc[0].bottom = g.bottom() + m.bottom() + 1;
+                params.rgrc[0].top = g.top + m.top();
+                params.rgrc[0].left = g.left + m.left();
+                params.rgrc[0].right = g.right - m.right();
+                params.rgrc[0].bottom = g.bottom - m.bottom();
             }
             
             if (result) *result = 0;
             return true;
         }
     } else if (WM_GETMINMAXINFO == lpMsg->message) {
-        LPMINMAXINFO lpMinMaxInfo = reinterpret_cast<LPMINMAXINFO>(lParam);
+        //LPMINMAXINFO lpMinMaxInfo = reinterpret_cast<LPMINMAXINFO>(lParam);
 
-        QRect g = d->availableGeometry();
-        QMargins m = d->maximizedMargins();
+        //QRect g = d->availableGeometry();
+        //QMargins m = d->maximizedMargins();
 
-        lpMinMaxInfo->ptMaxPosition.x = - m.left();
-        lpMinMaxInfo->ptMaxPosition.y =  - m.top();
-        lpMinMaxInfo->ptMaxSize.x = g.right() - g.left() + 1 + m.left() + m.right();
-        lpMinMaxInfo->ptMaxSize.y = g.bottom() - g.top() + 1 + m.top() + m.bottom();
+        //lpMinMaxInfo->ptMaxPosition.x = - m.left();
+        //lpMinMaxInfo->ptMaxPosition.y =  - m.top();
+        //lpMinMaxInfo->ptMaxSize.x = g.right() - g.left() + 1 + m.left() + m.right();
+        //lpMinMaxInfo->ptMaxSize.y = g.bottom() - g.top() + 1 + m.top() + m.bottom();
 
-        lpMinMaxInfo->ptMinTrackSize.x = d->window->minimumWidth();
-        lpMinMaxInfo->ptMinTrackSize.y = d->window->minimumHeight();
-        lpMinMaxInfo->ptMaxTrackSize.x = d->window->maximumWidth();
-        lpMinMaxInfo->ptMaxTrackSize.y = d->window->maximumHeight();
+        //lpMinMaxInfo->ptMinTrackSize.x = d->window->minimumWidth();
+        //lpMinMaxInfo->ptMinTrackSize.y = d->window->minimumHeight();
+        //lpMinMaxInfo->ptMaxTrackSize.x = d->window->maximumWidth();
+        //lpMinMaxInfo->ptMaxTrackSize.y = d->window->maximumHeight();
 
         if (result) *result = 0;
         return true;
@@ -255,9 +255,6 @@ int NativeWindowHelperPrivate::hitTest(int x, int y) const
 {
     Q_CHECK_PTR(window);
 
-    x = x / window->devicePixelRatio();
-    y = y / window->devicePixelRatio();
-
     enum RegionMask {
         Client = 0x0000,
         Top    = 0x0001,
@@ -266,14 +263,13 @@ int NativeWindowHelperPrivate::hitTest(int x, int y) const
         Bottom = 0x1000,
     };
 
-    auto wfg = window->frameGeometry();
-    QMargins draggableMargins
-            = this->draggableMargins();
+    auto fmgeo = window->frameGeometry();
+    QMargins margins = draggableMargins();
 
-    int top = draggableMargins.top();
-    int left = draggableMargins.left();
-    int right = draggableMargins.right();
-    int bottom = draggableMargins.bottom();
+    int top = margins.top();
+    int left = margins.left();
+    int right = margins.right();
+    int bottom = margins.bottom();
 
     if (top <= 0)
         top = GetSystemMetrics(SM_CYFRAME);
@@ -284,14 +280,22 @@ int NativeWindowHelperPrivate::hitTest(int x, int y) const
     if (bottom <= 0)
         bottom = GetSystemMetrics(SM_CYFRAME);
 
-    auto result =
-            (Top *    (y < (wfg.top() +    top))) |
-            (Left *   (x < (wfg.left() +   left))) |
-            (Right *  (x > (wfg.right() -  right))) |
-            (Bottom * (y > (wfg.bottom() - bottom)));
+    qDebug() << "hitTest1" << x << y << margins << fmgeo << top << left << right << bottom;
+
+    int result = 0;
+    if (y < (fmgeo.top() + top))
+        result |= Top;
+    if (x < (fmgeo.left() + left))
+        result |= Left;
+    if (x > (fmgeo.right() - right))
+        result |= Right;
+    if (y > (fmgeo.bottom() - bottom))
+        result |= Bottom;
 
     bool wResizable = window->minimumWidth() < window->maximumWidth();
     bool hResizable = window->minimumHeight() < window->maximumHeight();
+
+    qDebug() << "hitTest2" << result << wResizable << hResizable;
 
     switch (result) {
     case Top | Left    : return wResizable && hResizable ? HTTOPLEFT     : HTCLIENT;

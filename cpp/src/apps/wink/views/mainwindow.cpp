@@ -7,9 +7,9 @@
 #include "bizview.h"
 #include "mainview.h"
 
-#include <QFile>
 #include <QApplication>
-#include <QMoveEvent>
+#include <QWindow>
+#include <QFile>
 
 const int MinWindowWidth = 875;
 const int MinWindowHeight = 625;
@@ -29,25 +29,18 @@ MainWindow::~MainWindow()
 }
 
 bool MainWindow::event(QEvent* ev)
-{
-   bool result = QMainWindow::event(ev);
-
-    if (ev->type() == QEvent::WindowStateChange)
+{ 
+    auto type = ev->type();
+    switch (type)
     {
+    case QEvent::WindowStateChange:
         m_titleBar->setMainMaximize(isMaximized());
+        break;
+    default:
+        break;
     }
 
-    return result;
-}
-
-void MainWindow::resizeEvent(QResizeEvent* event)
-{
-    QMainWindow::resizeEvent(event);
-}
-
-void MainWindow::moveEvent(QMoveEvent* event)
-{
-    QMainWindow::moveEvent(event);
+    return QMainWindow::event(ev);
 }
 
 void MainWindow::initialize()
