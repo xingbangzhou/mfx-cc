@@ -12,7 +12,7 @@ public:
     explicit MainLayout(QWidget* parent);
     ~MainLayout();
 
-    void init(QWidget* toolBar, QWidget* titleBar, QWidget* mainView);
+    void init(QWidget* leftBar, QWidget* titleBar, QWidget* mainView);
 
     // QLayout
     void addItem(QLayoutItem* item) override;

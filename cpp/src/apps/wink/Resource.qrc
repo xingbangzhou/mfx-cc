@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>resources/qss/default.qss</file>
+        <file>resources/theme/default.qss</file>
+        <file>resources/titlebar/close.png</file>
         <file>resources/titlebar/fullscreen.png</file>
         <file>resources/titlebar/maximize.png</file>
         <file>resources/titlebar/minimize.png</file>
         <file>resources/bizcenter/mp4.png</file>
         <file>resources/bizcenter/mp4_hover.png</file>
-        <file>resources/bizcenter/avatar.jpg</file>
-        <file>resources/titlebar/close.png</file>
+        <file>resources/usercenter/avatar.jpg</file>
     </qresource>
 </RCC>

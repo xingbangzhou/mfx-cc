@@ -4,11 +4,10 @@
 #include <QApplication>
 #include <QScopedPointer>
 
-class BizCenter;
-class MainWindow;
-
 #define wkApp (static_cast<WKFramework*>(QCoreApplication::instance()))
 
+class UserCenter;
+class BizCenter;
 class WKFramework : public QApplication
 {
     Q_OBJECT
@@ -16,12 +15,11 @@ public:
     WKFramework(int& argc, char** argv);
     ~WKFramework();
 
-    void showWindow();
+    UserCenter* userCenter() const;
 
     BizCenter* bizCenter() const;
 
 private:
-    QScopedPointer<MainWindow> m_mainWindow;
 };
 
 #endif // WKFRAMEWORK_H

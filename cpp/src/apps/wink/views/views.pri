@@ -2,14 +2,14 @@ INCLUDEPATH += $$PWD
 
 HEADERS += \
     $$PWD/mainwindow.h \
+    $$PWD/mainlayout.h \
     $$PWD/titlebar.h \
-    $$PWD/bizview.h \
-    $$PWD/mainview.h \
-	$$PWD/mainlayout.h
+    $$PWD/leftbar.h \
+    $$PWD/frameview.h
     
 SOURCES += \
     $$PWD/mainwindow.cpp \
+    $$PWD/mainlayout.cpp \
     $$PWD/titlebar.cpp \
-    $$PWD/bizview.cpp \
-    $$PWD/mainview.cpp \
-	$$PWD/mainlayout.cpp
+    $$PWD/leftbar.cpp \
+    $$PWD/frameview.cpp

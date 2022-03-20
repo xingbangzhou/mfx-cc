@@ -7,7 +7,7 @@ QWidget {
     margin: 0px;
 }
 
-.BizView {
+.LeftBar {
     background-color: rgb(46, 46, 46);
 }
 

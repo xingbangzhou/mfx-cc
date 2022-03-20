@@ -14,9 +14,9 @@ MainLayout::~MainLayout()
         delete item;
 }
 
-void MainLayout::init(QWidget* toolBar, QWidget* titleBar, QWidget* mainView)
+void MainLayout::init(QWidget* leftBar, QWidget* titleBar, QWidget* mainView)
 {
-    addWidget(toolBar);
+    addWidget(leftBar);
     addWidget(titleBar);
     addWidget(mainView);
 }

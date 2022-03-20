@@ -6,9 +6,11 @@
 #include <QVBoxLayout>
 #include <QPaintEvent>
 
-#include "bizview.h"
-#include "bizcenter.h"
+#include "leftbar.h"
 #include "wkframework.h"
+#include "bizcenter.h"
+#include "bizitemmodel.h"
+#include "usercenter.h"
 
 /************************************************************************/
 /* Avatar                                                               */
@@ -16,7 +18,7 @@
 Avatar::Avatar(QWidget* parent /* = nullptr */)
     : QWidget(parent)
 {
-    setImage(":/resources/bizcenter/avatar.jpg");
+
 }
 
 Avatar::~Avatar()
@@ -52,40 +54,46 @@ void Avatar::mousePressEvent(QMouseEvent* event)
 }
 
 /************************************************************************/
-/* BizBar                                                               */
+/* LeftBar                                                              */
 /************************************************************************/
-BizView::BizView(QWidget* parent) 
+LeftBar::LeftBar(QWidget* parent) 
     : QWidget(parent)
     , m_avatar(new Avatar(this))
     , m_listView(new QListView(this))
 {
-    setObjectName("BizView");
-    
-    auto bizCenter = wkApp->bizCenter();
-    m_listView->setModel(wkApp->bizCenter());
-    m_listView->setItemDelegate(new BizItemDelegate(this));
-    connect(m_listView, &QListView::clicked, this, &BizView::onItemclicked);
-    connect(bizCenter, &BizCenter::activedChanged, this, &BizView::onActivedChanged);
-
+    setObjectName("LeftBar");
+    // Layout
     QVBoxLayout* layout = new QVBoxLayout(this);
     m_avatar->setFixedSize({40, 40});
     layout->addWidget(m_avatar);
     layout->addSpacing(20);
     layout->addWidget(m_listView);
     setLayout(layout);
+
+    // Bind BizCenter
+    auto bizModel = wkApp->bizCenter()->model();
+    m_listView->setModel(bizModel);
+    m_listView->setItemDelegate(new BizItemDelegate(this));
+    connect(m_listView, &QListView::clicked, this, &LeftBar::onItemclicked);
+    connect(bizModel, &BizItemModel::activedChanged, this, &LeftBar::onActivedChanged);
+
+    // Bind UserCenter
+    auto userCenter = wkApp->userCenter();
+    connect(userCenter, &UserCenter::avatarChanged, m_avatar, &Avatar::setImage);
+    m_avatar->setImage(userCenter->getAvatar());
 }
 
-BizView::~BizView()
+LeftBar::~LeftBar()
 {
 
 }
 
-Avatar* BizView::avatar() const
+Avatar* LeftBar::avatar() const
 {
     return m_avatar;
 }
 
-void BizView::paintEvent(QPaintEvent* event)
+void LeftBar::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
     QStyleOption styleOpt;
@@ -94,12 +102,12 @@ void BizView::paintEvent(QPaintEvent* event)
     style()->drawPrimitive(QStyle::PE_Widget, &styleOpt, &painter, this);
 }
 
-void BizView::onItemclicked(const QModelIndex& index)
+void LeftBar::onItemclicked(const QModelIndex& index)
 {
-    wkApp->bizCenter()->setActiveIndex(index);
+    wkApp->bizCenter()->model()->setActiveIndex(index);
 }
 
-void BizView::onActivedChanged(const QModelIndex& index)
+void LeftBar::onActivedChanged(const QModelIndex& index)
 {
     m_listView->setCurrentIndex(index);
 }

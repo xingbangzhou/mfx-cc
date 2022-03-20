@@ -12,9 +12,11 @@ RC_ICONS = logo.ico
 RESOURCES += \
     Resource.qrc
 	
-include(views/views.pri)
 include(framework/framework.pri)
-include(bizcore/bizcore.pri)
+include(usercenter/usercenter.pri)
+include(bizcenter/bizcenter.pri)
+include(views/views.pri)
+include(modules/modules.pri)
 
 PRECOMPILED_HEADER = stable.h
 HEADERS += stable.h

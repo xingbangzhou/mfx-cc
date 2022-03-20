@@ -280,8 +280,6 @@ int NativeWindowHelperPrivate::hitTest(int x, int y) const
     if (bottom <= 0)
         bottom = GetSystemMetrics(SM_CYFRAME);
 
-    qDebug() << "hitTest1" << x << y << margins << fmgeo << top << left << right << bottom;
-
     int result = 0;
     if (y < (fmgeo.top() + top))
         result |= Top;
@@ -294,8 +292,6 @@ int NativeWindowHelperPrivate::hitTest(int x, int y) const
 
     bool wResizable = window->minimumWidth() < window->maximumWidth();
     bool hResizable = window->minimumHeight() < window->maximumHeight();
-
-    qDebug() << "hitTest2" << result << wResizable << hResizable;
 
     switch (result) {
     case Top | Left    : return wResizable && hResizable ? HTTOPLEFT     : HTCLIENT;

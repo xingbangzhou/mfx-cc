@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QList>
 
 class FlatButton : public QPushButton
 {

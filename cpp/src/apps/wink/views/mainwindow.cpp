@@ -4,8 +4,8 @@
 #include "xhutils/framelesshelper.h"
 #include "mainlayout.h"
 #include "titlebar.h"
-#include "bizview.h"
-#include "mainview.h"
+#include "leftbar.h"
+#include "frameview.h"
 
 #include <QApplication>
 #include <QWindow>
@@ -17,8 +17,8 @@ const int MinWindowHeight = 625;
 MainWindow::MainWindow(QWidget* parent) 
     : QMainWindow(parent)
     , m_titleBar(new TitleBar(this))
-    , m_bizView(new BizView(this))
-    , m_mainView(new MainView(this))
+    , m_leftBar(new LeftBar(this))
+    , m_frameView(new FrameView(this))
 {
      initialize();
 }
@@ -52,19 +52,18 @@ void MainWindow::initialize()
     m_framelessHelper->setTitleBarHeight(32);
     QList<QWidget*> excludeItems;
     m_titleBar->getBtns(excludeItems);
-    excludeItems.push_back(m_bizView->avatar());
+    excludeItems.push_back(m_leftBar->avatar());
     for (auto item : excludeItems)
         m_framelessHelper->addExcludeItem(item);
-    m_framelessHelper->addExcludeItem(m_bizView);
     
     // 布局
     QWidget* widget = new QWidget(this);
     m_layout = new MainLayout(widget);
-    m_layout->init(m_bizView, m_titleBar, m_mainView);
+    m_layout->init(m_leftBar, m_titleBar, m_frameView);
     setCentralWidget(widget);
 
     // 窗口主题颜色
-    QFile file(":/resources/qss/default.qss");
+    QFile file(":/resources/theme/default.qss");
     file.open(QFile::ReadOnly);
     QString styleSheet = QString::fromLatin1(file.readAll());
     qApp->setStyleSheet(styleSheet);

@@ -1,7 +1,7 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    $$PWD/wkframework.h
+    $$PWD/usercenter.h
 	
 SOURCES += \
-    $$PWD/wkframework.cpp
+    $$PWD/usercenter.cpp

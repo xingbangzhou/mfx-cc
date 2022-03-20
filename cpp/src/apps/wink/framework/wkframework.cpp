@@ -2,20 +2,23 @@
 #include "wkframework.h"
 #include "mainwindow.h"
 #include "bizcenter.h"
+#include "usercenter.h"
 
 WKFramework::WKFramework(int& argc, char** argv) 
     : QApplication(argc, argv)
-    , m_mainWindow(new MainWindow())
 {
+
 }
 
 WKFramework::~WKFramework()
 {
+
 }
 
-void WKFramework::showWindow()
+UserCenter* WKFramework::userCenter() const
 {
-    m_mainWindow->show();
+    static UserCenter _userCenter;
+    return &_userCenter;
 }
 
 BizCenter* WKFramework::bizCenter() const

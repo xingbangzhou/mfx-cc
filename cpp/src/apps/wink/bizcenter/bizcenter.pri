@@ -1,11 +1,9 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    $$PWD/bizitem.h \
     $$PWD/bizcenter.h \
-    $$PWD/mp4activeview.h
+    $$PWD/bizitemmodel.h
 	
 SOURCES += \
-    $$PWD/bizitem.cpp \
     $$PWD/bizcenter.cpp \
-    $$PWD/mp4activeview.cpp
+    $$PWD/bizitemmodel.cpp

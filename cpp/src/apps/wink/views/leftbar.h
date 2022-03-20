@@ -1,5 +1,5 @@
-﻿#ifndef BIZVIEW_H
-#define BIZVIEW_H
+﻿#ifndef LEFTBAR_H
+#define LEFTBAR_H
 
 #include <QWidget>
 
@@ -12,6 +12,8 @@ public:
     ~Avatar();
 
     const QString& getImage() const;
+    
+public slots:
     void setImage(const QString& image);
 
 signals:
@@ -27,13 +29,13 @@ private:
 };
 
 class QListView;
-class BizView : public QWidget
+class LeftBar : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit BizView(QWidget* parent = nullptr);
-    ~BizView();
+    explicit LeftBar(QWidget* parent = nullptr);
+    ~LeftBar();
 
     Avatar* avatar() const;
 
@@ -49,4 +51,4 @@ private:
     QListView* m_listView;
 };
 
-#endif // BIZVIEW_H
+#endif // LEFTBAR_H

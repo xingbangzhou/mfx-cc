@@ -4,10 +4,11 @@
 #include <QMainWindow>
 
 class FramelessHelper;
-class MainLayout;
-class BizView;
+
 class TitleBar;
-class MainView;
+class LeftBar;
+class FrameView;
+class MainLayout;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -24,8 +25,8 @@ private:
 
     FramelessHelper* m_framelessHelper;
     MainLayout* m_layout;
-    BizView* m_bizView;
     TitleBar* m_titleBar;
-    MainView* m_mainView;
+    LeftBar* m_leftBar;
+    FrameView* m_frameView;
 };
 #endif // MAINWINDOW_H
