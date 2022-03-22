@@ -15,7 +15,9 @@ PRECOMPILED_HEADER = stable.h
 HEADERS += \
         stable.h \
         xhcoreexport.h \
-        xhlogger.h
+        xhlogger.h \
+		xhreflect.h
 
 SOURCES += \
-        xhlogger.cpp
+        xhlogger.cpp \
+		xhreflect.cpp
