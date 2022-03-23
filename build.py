@@ -25,6 +25,15 @@ def copyDepends():
         name = os.path.join(dependsPath, files, 'bin')
         if os.path.isdir(name):
             deepCopy(name, shadowBin)
+            
+def copyConfig():
+    shadowBin = os.path.join('.', 'shadow', 'bin')
+    if not os.path.isdir(shadowBin):
+        os.makedirs(shadowBin)
+    
+    configPath = os.path.join('.', 'config')
+    deepCopy(configPath, os.path.join(shadowBin, 'debug'))
+    deepCopy(configPath, os.path.join(shadowBin, 'release'))
 
 def generateSln():
     rootProPath = os.path.join('..', 'cpp', 'src.pro')
@@ -47,3 +56,4 @@ def generateSln():
 if __name__ == '__main__':
     generateSln()
     copyDepends()
+    copyConfig()

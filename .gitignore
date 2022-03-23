@@ -1,9 +1,8 @@
 .vs/
-/depends/
 /shadow/
-bin/
-debug/
-release/
+cpp/**/bin/
+cpp/**/debug/
+cpp/**/release/
 
 # vsfiles
 *.vcproj.user
