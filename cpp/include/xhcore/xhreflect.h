@@ -1,23 +1,28 @@
-﻿#ifndef BIZRELFECT_H
-#define BIZRELFECT_H
+﻿#ifndef XHRELFECT_H
+#define XHRELFECT_H
 
+#include "xhcoreexport.h"
 #include <QObject>
 
-class XhReflectBase
+class xhReflect
 {
 public:
-    virtual ~XhReflectBase() = default;
+    virtual ~xhReflect() = default;
 
-    virtual const char* iid() const = 0;
+    virtual const QString& iid() const = 0;
 
     template<typename Type> 
     Type* createObject()
     {
         return reinterpret_cast<Type*>(getHolder()->createObject());
     }
+    QObject* createObject()
+    {
+        return getHolder()->createObject();
+    }
 
 protected:
-    XhReflectBase() = default;
+    xhReflect() = default;
 
     struct placeholder
     {
@@ -39,15 +44,15 @@ protected:
 };
 
 template <typename Type> 
-class XhReflectReal : public XhReflectBase
+class xhReflectHolder : public xhReflect
 {
 public:
-    XhReflectReal(const char* iid)
+    xhReflectHolder(const char* iid)
         : m_iid(iid)
     {
     }
 
-    const char* iid() const
+    const QString& iid() const
     {
         return m_iid;
     }
@@ -60,30 +65,32 @@ protected:
     }
 
 private:
-    const char* m_iid;
+    QString m_iid;
 };
 
-void registerXhReflect(XhReflectBase* reflect);
-void unregisterXhReflect(XhReflectBase* reflect);
+XHCORE_EXPORT void registerXHReflect(xhReflect* reflect);
+XHCORE_EXPORT void unregisterXHReflect(xhReflect* reflect);
 
-#define DECLARE_BIZREFLECT(ClassName, IId) \
+XHCORE_EXPORT QObject* createXHObject(const QString& iid);
+
+#define DECLARE_XHREFLECT(IFace, IId) \
     private: \
-    struct XhReflectHolder##ClassName \
+    struct xhReflectLife##IFace \
     { \
-        XhReflectReal<ClassName> reflect##ClassName; \
-        XhReflectHolder##ClassName() \
-            : reflect##ClassName(IId) \
-        { \
-            registerXhReflect(&reflect##ClassName); \
-        } \
-        ~XhReflectHolder##ClassName() \
-        { \
-            unregisterXhReflect(&reflect##ClassName); \                                                                                                         \
-        } \
-    } \
-    static XhReflectHolder##ClassName s_xhreflectHolder##ClassName;
+        xhReflectHolder<IFace> reflect##IFace; \
+        xhReflectLife##IFace() \
+            : reflect##IFace(IId) \
+        {\
+            registerXHReflect(&reflect##IFace); \
+        }\
+        ~xhReflectLife##IFace() \
+        {\
+            unregisterXHReflect(&reflect##IFace); \
+        }\
+    }; \
+    static xhReflectLife##IFace s_xhreflectLife##IFace;
 
-#define IMPLEMENT_BIZREFLECT(ClassName) \
-    static ClassName::XhReflectHolder##ClassName s_xhreflectHolder##ClassName;
+#define IMPLEMENT_XHREFLECT(IFace) \
+    IFace::xhReflectLife##IFace IFace::s_xhreflectLife##IFace;
 
-#endif // BIZRELFECT_H
+#endif // XHRELFECT_H

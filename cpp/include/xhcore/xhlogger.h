@@ -1,15 +1,14 @@
-#ifndef XHLOGGER_H
+﻿#ifndef XHLOGGER_H
 #define XHLOGGER_H
 
+#include "xhcoreexport.h"
 #include <QString>
 
-#include "xhcoreexport.h"
-
-class XHCORE_EXPORT XhLogger
+class XHCORE_EXPORT xhLogger
 {
 public:
-    explicit XhLogger(const QString& name);
-    virtual ~XhLogger();
+    explicit xhLogger(const QString& name);
+    virtual ~xhLogger();
 
     void debug(const QString& s);
     void info(const QString& s);
@@ -19,7 +18,7 @@ public:
     void fatal(const QString& s);
 
 private:
-    Q_DISABLE_COPY(XhLogger)
+    Q_DISABLE_COPY(xhLogger)
 
     QString m_name;
 };

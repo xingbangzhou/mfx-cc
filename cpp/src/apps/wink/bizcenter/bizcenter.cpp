@@ -2,11 +2,13 @@
 #include "bizcenter.h"
 #include "bizitemmodel.h"
 
+#include "xhcore/xhreflect.h"
+
 BizCenter::BizCenter(QObject* parent /*= nullptr*/)
     : QObject(parent)
     , m_model(new BizItemModel(this))
 {
-
+    
 }
 
 BizCenter::~BizCenter()
