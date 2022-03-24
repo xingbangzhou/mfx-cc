@@ -9,7 +9,7 @@ class xhReflect
 public:
     virtual ~xhReflect() = default;
 
-    virtual const QString& iid() const = 0;
+    virtual const QString& cid() const = 0;
 
     template<typename Type> 
     Type* createObject()
@@ -47,14 +47,14 @@ template <typename Type>
 class xhReflectHolder : public xhReflect
 {
 public:
-    xhReflectHolder(const char* iid)
-        : m_iid(iid)
+    xhReflectHolder(const char* cid)
+        : m_cid(cid)
     {
     }
 
-    const QString& iid() const
+    const QString& cid() const
     {
-        return m_iid;
+        return m_cid;
     }
 
 protected:
@@ -65,32 +65,32 @@ protected:
     }
 
 private:
-    QString m_iid;
+    QString m_cid;
 };
 
-XHCORE_EXPORT void registerXHReflect(xhReflect* reflect);
-XHCORE_EXPORT void unregisterXHReflect(xhReflect* reflect);
+XHCORE_EXPORT void xh_registerReflect(xhReflect* reflect);
+XHCORE_EXPORT void xh_unregisterReflect(xhReflect* reflect);
 
-XHCORE_EXPORT QObject* createXHObject(const QString& iid);
+XHCORE_EXPORT QObject* xh_createObject(const QString& cid);
 
-#define DECLARE_XHREFLECT(IFace, IId) \
+#define DECLARE_XHREFLECT(Class, cid) \
     private: \
-    struct xhReflectLife##IFace \
+    struct xhReflectLife##Class \
     { \
-        xhReflectHolder<IFace> reflect##IFace; \
-        xhReflectLife##IFace() \
-            : reflect##IFace(IId) \
+        xhReflectHolder<Class> reflect##Class; \
+        xhReflectLife##Class() \
+            : reflect##Class(cid) \
         {\
-            registerXHReflect(&reflect##IFace); \
+            xh_registerReflect(&reflect##Class); \
         }\
-        ~xhReflectLife##IFace() \
+        ~xhReflectLife##Class() \
         {\
-            unregisterXHReflect(&reflect##IFace); \
+            xh_unregisterReflect(&reflect##Class); \
         }\
     }; \
-    static xhReflectLife##IFace s_xhreflectLife##IFace;
+    static xhReflectLife##Class s_xhreflectLife##Class;
 
-#define IMPLEMENT_XHREFLECT(IFace) \
-    IFace::xhReflectLife##IFace IFace::s_xhreflectLife##IFace;
+#define IMPLEMENT_XHREFLECT(Class) \
+    Class::xhReflectLife##Class Class::s_xhreflectLife##Class;
 
 #endif // XHRELFECT_H

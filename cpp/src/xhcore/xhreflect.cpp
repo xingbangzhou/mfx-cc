@@ -5,21 +5,21 @@
 
 static std::list<xhReflect*> connRegistered;
 
-void registerXHReflect(xhReflect* reflect)
+void xh_registerReflect(xhReflect* reflect)
 {
     connRegistered.push_back(reflect);
 }
 
-void unregisterXHReflect(xhReflect* reflect)
+void xh_unregisterReflect(xhReflect* reflect)
 {
     connRegistered.remove(reflect);
 }
 
-QObject* createXHObject(const QString& iid)
+QObject* xh_createObject(const QString& cid)
 {
     auto itr = std::find_if(
         connRegistered.begin(),
-        connRegistered.end(), [&iid](xhReflect * &reflect) -> auto { return reflect->iid() == iid; });
+        connRegistered.end(), [&cid](xhReflect * &reflect) -> auto { return reflect->cid() == cid; });
     if (itr == connRegistered.end())
     {
         return nullptr;
