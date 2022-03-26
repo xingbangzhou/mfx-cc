@@ -1,8 +1,8 @@
 ﻿#ifndef FRAMELESSHELPER_H
 #define FRAMELESSHELPER_H
-#include <QWidget>
 
 #include "xhutilsexport.h"
+#include <QWidget>
 
 class FramelessHelperPrivate;
 class XHUTILS_EXPORT FramelessHelper : public QObject

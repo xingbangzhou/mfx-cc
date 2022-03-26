@@ -11,11 +11,6 @@ public:
 
     virtual const QString& cid() const = 0;
 
-    template<typename Type> 
-    Type* createObject()
-    {
-        return reinterpret_cast<Type*>(getHolder()->createObject());
-    }
     QObject* createObject()
     {
         return getHolder()->createObject();

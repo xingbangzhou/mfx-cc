@@ -1,10 +1,9 @@
 ﻿#ifndef FRAMELESSHELPER_P_H
 #define FRAMELESSHELPER_P_H
 
-#include <QSet>
-
 #include "xhutils/FramelessHelper.h"
 #include "Kernels/NativeWindowHelper.h"
+#include <QSet>
 
 class FramelessHelperPrivate : public NativeWindowTester
 {

@@ -1,17 +1,19 @@
 ﻿#include "stable.h"
 #include "xhreflect.h"
-
 #include <list>
+#include <QDebug>
 
 static std::list<xhReflect*> connRegistered;
 
 void xh_registerReflect(xhReflect* reflect)
 {
+    qDebug() << "xhrelfect[register]: " << reflect->cid();
     connRegistered.push_back(reflect);
 }
 
 void xh_unregisterReflect(xhReflect* reflect)
 {
+    qDebug() << "xhrelfect[unregister]: " << reflect->cid();
     connRegistered.remove(reflect);
 }
 

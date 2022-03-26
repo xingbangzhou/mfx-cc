@@ -1,10 +1,9 @@
-#ifndef NATIVEWINDOWFILTER_P_H
+﻿#ifndef NATIVEWINDOWFILTER_P_H
 #define NATIVEWINDOWFILTER_P_H
 
+#include "NativeWindowFilter.h"
 #include <QHash>
 #include <QWindow>
-
-#include "NativeWindowFilter.h"
 
 class NativeWindowFilterPrivate
 {
