@@ -7,8 +7,16 @@ QWidget {
     margin: 0px;
 }
 
+.TitleBar {
+    background-color: rgb(245, 245, 245);
+}
+
 .LeftBar {
     background-color: rgb(46, 46, 46);
+}
+
+.FrameView {
+    background-color: rgb(245, 245, 245);
 }
 
 QListView {

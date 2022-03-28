@@ -4,25 +4,42 @@
 #include "bizcenter.h"
 #include "usercenter.h"
 
-WKFramework::WKFramework(int& argc, char** argv) 
+wkFramework::wkFramework(int& argc, char** argv) 
     : QApplication(argc, argv)
+    , m_view(nullptr)
 {
 
 }
 
-WKFramework::~WKFramework()
+wkFramework::~wkFramework()
 {
 
 }
 
-UserCenter* WKFramework::userCenter() const
+xhLogger* wkFramework::logger()
+{
+    static xhLogger _logger("wkApp");
+    return &_logger;
+}
+
+UserCenter* wkFramework::userCenter() const
 {
     static UserCenter _userCenter;
     return &_userCenter;
 }
 
-BizCenter* WKFramework::bizCenter() const
+BizCenter* wkFramework::bizCenter() const
 {
     static BizCenter _bizCenter;
     return &_bizCenter;
+}
+
+void wkFramework::setFrameView(FrameView* view)
+{
+    m_view = view;
+}
+
+FrameView* wkFramework::frameView() const
+{
+    return m_view;
 }

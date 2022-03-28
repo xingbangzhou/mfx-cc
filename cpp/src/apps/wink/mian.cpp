@@ -5,7 +5,7 @@
 int main(int argc, char* argv[])
 {
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    WKFramework app(argc, argv);
+    wkFramework app(argc, argv);
 
     MainWindow mainWindow;
     mainWindow.show();

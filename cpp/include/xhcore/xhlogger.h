@@ -15,7 +15,6 @@ public:
     void trace(const QString& s);
     void warn(const QString& s);
     void error(const QString& s);
-    void fatal(const QString& s);
 
 private:
     Q_DISABLE_COPY(xhLogger)

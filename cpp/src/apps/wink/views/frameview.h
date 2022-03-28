@@ -10,6 +10,15 @@ class FrameView : public QWidget
 public:
     explicit FrameView(QWidget* parent = nullptr);
     ~FrameView();
+
+    void setView(QWidget* content);
+
+protected:
+    void paintEvent(QPaintEvent*) override;
+    void resizeEvent(QResizeEvent*) override;
+
+private:
+    QWidget* m_content;
 };
 
 #endif // FRAMEVIEW_H

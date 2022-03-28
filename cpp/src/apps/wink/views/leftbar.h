@@ -40,7 +40,7 @@ public:
     Avatar* avatar() const;
 
 protected:
-    void paintEvent(QPaintEvent* event) override;
+    void paintEvent(QPaintEvent*) override;
 
 private slots:
     void onItemclicked(const QModelIndex& index);

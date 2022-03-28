@@ -60,6 +60,13 @@ BizItemModel::~BizItemModel()
 
 }
 
+void BizItemModel::setItemList(const QList<BizItemData>& itemList)
+{
+    beginResetModel();
+    m_itemList = itemList;
+    endResetModel();
+}
+
 void BizItemModel::setActiveIndex(const QModelIndex& index)
 {
     clear();

@@ -39,8 +39,3 @@ void xhLogger::error(const QString& s)
 {
     qCritical().nospace() << qUtf8Printable(m_name) << ": " << qUtf8Printable(s);
 }
-
-void xhLogger::fatal(const QString& s)
-{
-    qCritical().nospace() << qUtf8Printable(m_name) << ": " << qUtf8Printable(s);
-}

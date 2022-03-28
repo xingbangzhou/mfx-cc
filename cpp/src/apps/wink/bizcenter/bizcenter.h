@@ -13,7 +13,9 @@ public:
     explicit BizCenter(QObject* parent = nullptr);
     ~BizCenter();
 
-    void setActiveId(const QString& id);
+    void init();
+
+    void setActiveId(const QString& cid);
 
     BizItemModel* model() const;
 

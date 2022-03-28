@@ -1,15 +1,17 @@
 ﻿#include "stable.h"
-#include "mainwindow.h"
 
+#include <QApplication>
+#include <QFile>
+#include <QWindow>
+
+#include "mainwindow.h"
 #include "xhutils/framelesshelper.h"
 #include "mainlayout.h"
 #include "titlebar.h"
 #include "leftbar.h"
 #include "frameview.h"
-
-#include <QApplication>
-#include <QWindow>
-#include <QFile>
+#include "wkframework.h"
+#include "bizcenter.h"
 
 const int MinWindowWidth = 875;
 const int MinWindowHeight = 625;
@@ -45,6 +47,7 @@ bool MainWindow::event(QEvent* ev)
 
 void MainWindow::initialize()
 {
+    wkApp->setFrameView(m_frameView);
     // 自定义窗体
     setWindowFlag(Qt::FramelessWindowHint);
     setMinimumSize({ MinWindowWidth, MinWindowHeight });
@@ -62,10 +65,13 @@ void MainWindow::initialize()
     m_layout->init(m_leftBar, m_titleBar, m_frameView);
     setCentralWidget(widget);
 
-    // 窗口主题颜色
+    // QSS主题
     QFile file(":/resources/theme/default.qss");
     file.open(QFile::ReadOnly);
     QString styleSheet = QString::fromLatin1(file.readAll());
     qApp->setStyleSheet(styleSheet);
+
+    // 初始化数据
+    wkApp->bizCenter()->init();
 }
 

@@ -93,9 +93,8 @@ Avatar* LeftBar::avatar() const
     return m_avatar;
 }
 
-void LeftBar::paintEvent(QPaintEvent* event)
+void LeftBar::paintEvent(QPaintEvent*)
 {
-    Q_UNUSED(event);
     QStyleOption styleOpt;
     styleOpt.initFrom(this);
     QPainter painter(this);
@@ -104,7 +103,15 @@ void LeftBar::paintEvent(QPaintEvent* event)
 
 void LeftBar::onItemclicked(const QModelIndex& index)
 {
-    wkApp->bizCenter()->model()->setActiveIndex(index);
+    if (!index.isValid())
+    {
+        wkApp->bizCenter()->setActiveId("");
+    }
+    else
+    {
+        BizItemData itemData = index.data().value<BizItemData>();
+        wkApp->bizCenter()->setActiveId(itemData.classId);
+    }
 }
 
 void LeftBar::onActivedChanged(const QModelIndex& index)

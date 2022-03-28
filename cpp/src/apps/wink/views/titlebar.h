@@ -27,6 +27,9 @@ public:
 
     void getBtns(QList<QWidget*>& out) const;
 
+protected:
+    void paintEvent(QPaintEvent*) override;
+
 private slots:
     void closed();
     void maximized();

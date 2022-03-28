@@ -81,6 +81,14 @@ void TitleBar::getBtns(QList<QWidget*>& out) const
     out.append(m_btnMinimize);
 }
 
+void TitleBar::paintEvent(QPaintEvent*)
+{
+    QStyleOption styleOpt;
+    styleOpt.initFrom(this);
+    QPainter painter(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &styleOpt, &painter, this);
+}
+
 void TitleBar::closed()
 {
     qApp->quit();

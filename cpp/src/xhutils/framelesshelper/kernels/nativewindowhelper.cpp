@@ -11,7 +11,7 @@
 #include <QScreen>
 #include <QEvent>
 #include <QOperatingSystemVersion>
-#include <QDebug>
+#include <QOperatingSystemVersion>
 
 // class NativeWindowHelper
 

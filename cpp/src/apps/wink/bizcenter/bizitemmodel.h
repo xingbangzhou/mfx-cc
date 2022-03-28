@@ -32,6 +32,8 @@ public:
     explicit BizItemModel(QObject* parent = nullptr);
     ~BizItemModel();
 
+    void setItemList(const QList<BizItemData>& itemList);
+
     void setActiveIndex(const QModelIndex& index);
 
     QModelIndex indexById(const QString& id) const;
