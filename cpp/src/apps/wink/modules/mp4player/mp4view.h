@@ -10,6 +10,10 @@ public:
     MP4View();
     ~MP4View();
 
+protected:
+    void paintEvent(QPaintEvent*) override;
+    void resizeEvent(QResizeEvent*) override;
+
 private:
 
 };

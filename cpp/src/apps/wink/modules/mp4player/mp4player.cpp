@@ -9,7 +9,7 @@ MP4Player::MP4Player(QObject* parent)
     : BizRealizable(parent)
     , m_view(nullptr)
 {
-
+    
 }
 
 MP4Player::~MP4Player()

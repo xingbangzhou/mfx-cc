@@ -12,8 +12,8 @@ FrameView::FrameView(QWidget* parent /* = nullptr */)
 {
     setMinimumSize({ 400, 500 });
     setObjectName("FrameView");
-    //QGridLayout* layout = new QGridLayout(this);
-    //setLayout(layout);
+    QGridLayout* layout = new QGridLayout(this);
+    setLayout(layout);
 }
 
 FrameView::~FrameView()
@@ -23,19 +23,18 @@ FrameView::~FrameView()
 
 void FrameView::setView(QWidget* content)
 {
-    content;
-    //if (m_content)
-    //{
-    //    m_content->hide();
-    //    layout()->removeWidget(m_content);
-    //}
-    //m_content = content;
-    //if (m_content)
-    //{
-    //    layout()->addWidget(m_content);
-    //    layout()->update();
-    //    m_content->show();
-    //}
+    if (m_content)
+    {
+        m_content->hide();
+        layout()->removeWidget(m_content);
+    }
+    m_content = content;
+    if (m_content)
+    {
+        m_content->setParent(this);
+        layout()->addWidget(m_content);
+        m_content->setVisible(true);
+    }
 }
 
 void FrameView::paintEvent(QPaintEvent*)
